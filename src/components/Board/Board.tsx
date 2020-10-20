@@ -3,13 +3,14 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-20T15:16:59.919Z-07:00
+ * @last-modified 2020-10-20T15:55:51.181Z-07:00
  */
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Cell from "components/Cell/Cell";
+import { checkIfIndexInBox } from "utils/utils";
 
 const BoardStyles = makeStyles({
   boardGrid: {
@@ -24,9 +25,17 @@ const BoardStyles = makeStyles({
 
 interface BoardProps {
   sudokuGrid: Array<Array<number>>;
+  changeActiveCell: (rowPosition: number, columnPosition: number) => void;
+  activeRowPosition: number;
+  activeColumnPosition: number;
 }
 
-const Board = ({ sudokuGrid }: BoardProps): React.ReactElement => {
+const Board = ({
+  sudokuGrid,
+  changeActiveCell,
+  activeRowPosition,
+  activeColumnPosition,
+}: BoardProps): React.ReactElement => {
   const classes = BoardStyles();
   console.log(sudokuGrid);
 
@@ -34,11 +43,25 @@ const Board = ({ sudokuGrid }: BoardProps): React.ReactElement => {
     return row.map((value, columnIndex) => {
       return (
         <Cell
-          active={false}
+          active={
+            activeRowPosition === rowIndex &&
+            activeColumnPosition === columnIndex
+          }
+          isConstrainingActive={
+            activeRowPosition === rowIndex ||
+            activeColumnPosition === columnIndex ||
+            checkIfIndexInBox(
+              activeRowPosition,
+              activeColumnPosition,
+              rowIndex,
+              columnIndex
+            )
+          }
           rowPosition={rowIndex}
           columnPosition={columnIndex}
           value={value}
           key={`${rowIndex - columnIndex}`}
+          onClick={changeActiveCell}
         />
       );
     });
