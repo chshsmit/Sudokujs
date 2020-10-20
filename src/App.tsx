@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 
-import Cell from "components/Cell/Cell";
+import Game from "components/Game/Game";
 
 const App = (): React.ReactElement => (
   <div className="App">
-    <Cell active={false} />
+    <Game />
   </div>
 );
 
