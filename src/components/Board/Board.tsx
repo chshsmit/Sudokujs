@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-20T15:55:51.181Z-07:00
+ * @last-modified 2020-10-20T16:01:32.540Z-07:00
  */
 
 import React from "react";
@@ -37,7 +37,6 @@ const Board = ({
   activeColumnPosition,
 }: BoardProps): React.ReactElement => {
   const classes = BoardStyles();
-  console.log(sudokuGrid);
 
   const allCells = sudokuGrid.map((row, rowIndex) => {
     return row.map((value, columnIndex) => {

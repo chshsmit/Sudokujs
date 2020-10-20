@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-20T15:42:59.798Z-07:00
+ * @last-modified 2020-10-20T15:58:13.701Z-07:00
  */
 
 import React from "react";
@@ -78,7 +78,7 @@ const Cell = ({
       className={cellClass}
       onClick={() => onClick(rowPosition, columnPosition)}
     >
-      {value}
+      {value ? value : ""}
     </div>
   );
 };
