@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-21T14:48:14.086Z-07:00
+ * @last-modified 2020-10-21T14:56:27.765Z-07:00
  */
 
 import React from "react";
@@ -20,8 +20,8 @@ import NotesIcon from "@material-ui/icons/Notes";
 const ActionsStyles = makeStyles({
   mainActionContainer: {
     marginTop: "3%",
-    width: "50%",
-    margin: "auto",
+    width: "10%",
+    // margin: "auto",
   },
 });
 
@@ -40,8 +40,9 @@ const Actions = ({
   return (
     <Grid
       container
-      justify="space-around"
-      direction="row"
+      justify="flex-start"
+      alignItems="flex-start"
+      direction="column"
       className={classes.mainActionContainer}
     >
       <ActionIcon

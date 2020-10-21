@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-21T14:20:58.321Z-07:00
  * @copyright
- * @last-modified 2020-10-21T14:48:01.016Z-07:00
+ * @last-modified 2020-10-21T14:58:19.069Z-07:00
  */
 
 import React from "react";
@@ -25,8 +25,8 @@ const ActionIcon = ({
 }: ActionIconProps): React.ReactElement => {
   return (
     <Grid item>
-      <Tooltip title={actionText}>
-        <IconButton onClick={action} disabled={!active}>
+      <Tooltip title={actionText} placement="right">
+        <IconButton onClick={action} disabled={!active} color="default">
           {icon}
         </IconButton>
       </Tooltip>
