@@ -4,14 +4,16 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-21T13:06:50.675Z-07:00
+ * @last-modified 2020-10-21T14:43:47.725Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { Grid } from "@material-ui/core";
 
 import { NUMBER_KEYS, NAVIGATION_KEYS } from "components/Game/GameConstants";
 import { createNewGrid, determineUneditableCells } from "utils/utils";
 import Board from "components/Board/Board";
+import Actions from "components/Actions/Actions";
 
 const Game = (): React.ReactElement => {
   // ---------------------------------------------------------------
@@ -36,7 +38,7 @@ const Game = (): React.ReactElement => {
     return () => {
       document.removeEventListener("keydown", newKeyBoardInput);
     };
-  }, [selectedPosition]);
+  });
 
   // ---------------------------------------------------------------
   // Keyboard handlers
@@ -118,13 +120,23 @@ const Game = (): React.ReactElement => {
   };
 
   return (
-    <Board
-      sudokuGrid={sudokuGrid}
-      uneditableCells={uneditableCells}
-      activeRowPosition={selectedPosition.rowPosition}
-      activeColumnPosition={selectedPosition.columnPosition}
-      changeActiveCell={changeActiveCell}
-    />
+    <Grid container direction="column" justify="center">
+      <Board
+        sudokuGrid={sudokuGrid}
+        uneditableCells={uneditableCells}
+        activeRowPosition={selectedPosition.rowPosition}
+        activeColumnPosition={selectedPosition.columnPosition}
+        changeActiveCell={changeActiveCell}
+      />
+      <Actions
+        activeCellEditable={
+          !uneditableCells.includes(
+            `${selectedPosition.rowPosition}-${selectedPosition.columnPosition}`
+          )
+        }
+        deleteCell={putNewNumberInGrid}
+      />
+    </Grid>
   );
 };
 

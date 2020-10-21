@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-21T13:09:22.721Z-07:00
+ * @last-modified 2020-10-21T14:04:57.565Z-07:00
  */
 
 import React from "react";
@@ -15,8 +15,8 @@ import { checkIfIndexInBox } from "utils/utils";
 const BoardStyles = makeStyles({
   boardGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(9, 50px)",
-    gridTemplateRows: "repeat(9, 50px)",
+    gridTemplateColumns: "repeat(9, 70px)",
+    gridTemplateRows: "repeat(9, 70px)",
     width: "fit-content",
     margin: "auto",
     marginTop: "2%",
@@ -56,7 +56,9 @@ const Board = ({
               activeColumnPosition,
               rowIndex,
               columnIndex
-            )
+            ) ||
+            (value === sudokuGrid[activeRowPosition][activeColumnPosition] &&
+              value !== 0)
           }
           editable={!uneditableCells.includes(`${rowIndex}-${columnIndex}`)}
           rowPosition={rowIndex}

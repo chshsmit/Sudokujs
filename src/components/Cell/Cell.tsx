@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-21T12:16:00.767Z-07:00
+ * @last-modified 2020-10-21T14:06:42.324Z-07:00
  */
 
 import React from "react";
@@ -12,15 +12,15 @@ import clsx from "clsx";
 
 const CellStyles = makeStyles({
   mainCell: {
-    width: "50px",
-    height: "50px",
+    width: "70px",
     borderLeft: "1px solid",
     borderTop: "1px solid",
     borderColor: "black !important",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "large",
+    fontSize: "2em",
+    fontWeight: "bold",
   },
   editableCell: {
     color: "blue",
@@ -29,22 +29,22 @@ const CellStyles = makeStyles({
     background: "#fafaa0",
   },
   constrainingCell: {
-    background: "#d4d4d4",
+    background: "rgba(230, 230, 230, .8)",
   },
   lastColumn: {
     borderRight: "4px solid",
-    width: "46px",
+    width: "66px",
   },
   lastRow: {
     borderBottom: "4px solid",
   },
   thickLeft: {
     borderLeft: "4px solid",
-    width: "46px",
+    width: "66px",
   },
   thickTop: {
     borderTop: "4px solid",
-    height: "46px",
+    height: "66px",
   },
 });
 
