@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-21T12:05:53.973Z-07:00
+ * @last-modified 2020-10-21T13:06:50.675Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -15,10 +15,10 @@ import Board from "components/Board/Board";
 
 const Game = (): React.ReactElement => {
   // ---------------------------------------------------------------
+  // State and Refs
+  // ---------------------------------------------------------------
   const [sudokuGrid, updateGrid] = useState(createNewGrid());
   const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
-
-  console.log(uneditableCells);
 
   const [selectedPosition, changeSelectedPosition] = useState({
     rowPosition: 0,
@@ -27,24 +27,7 @@ const Game = (): React.ReactElement => {
   const selectedPositionRef = useRef(selectedPosition);
 
   // ---------------------------------------------------------------
-
-  const newKeyBoardInput = useCallback((event: KeyboardEvent): void => {
-    console.log(selectedPositionRef.current);
-
-    if (NUMBER_KEYS.includes(event.key)) {
-      console.log("We are adding a new number to the grid");
-      const copyOfGrid = [...sudokuGrid];
-      copyOfGrid[selectedPositionRef.current.rowPosition][
-        selectedPositionRef.current.columnPosition
-      ] = Number(event.key);
-      updateGrid(copyOfGrid);
-    } else if (NAVIGATION_KEYS.includes(event.key)) {
-      console.log("We are navigating");
-    } else {
-      console.log("None of these were valid");
-    }
-  }, []);
-
+  // Effects
   // ---------------------------------------------------------------
 
   useEffect(() => {
@@ -56,8 +39,74 @@ const Game = (): React.ReactElement => {
   }, [selectedPosition]);
 
   // ---------------------------------------------------------------
+  // Keyboard handlers
+  // ---------------------------------------------------------------
 
-  const selectNewActiveCell = (
+  const newKeyBoardInput = useCallback((event: KeyboardEvent): void => {
+    if (
+      NUMBER_KEYS.includes(event.key) &&
+      !uneditableCells.includes(
+        `${selectedPositionRef.current.rowPosition}-${selectedPositionRef.current.columnPosition}`
+      )
+    ) {
+      putNewNumberInGrid(event.key === "Backspace" ? 0 : Number(event.key));
+    } else if (NAVIGATION_KEYS.includes(event.key)) {
+      navigateGrid(event.key);
+    } else {
+      console.log("None of these were valid");
+    }
+  }, []);
+
+  // ---------------------------------------------------------------
+
+  const putNewNumberInGrid = (value: number): void => {
+    const copyOfGrid = [...sudokuGrid];
+    copyOfGrid[selectedPositionRef.current.rowPosition][
+      selectedPositionRef.current.columnPosition
+    ] = value;
+    updateGrid(copyOfGrid);
+  };
+
+  // ---------------------------------------------------------------
+
+  const navigateGrid = (direction: string): void => {
+    switch (direction) {
+      case "ArrowUp":
+        if (selectedPositionRef.current.rowPosition !== 0)
+          changeActiveCell(
+            selectedPositionRef.current.rowPosition - 1,
+            selectedPositionRef.current.columnPosition
+          );
+        break;
+      case "ArrowDown":
+        if (selectedPositionRef.current.rowPosition !== 8)
+          changeActiveCell(
+            selectedPositionRef.current.rowPosition + 1,
+            selectedPositionRef.current.columnPosition
+          );
+        break;
+      case "ArrowLeft":
+        if (selectedPositionRef.current.columnPosition !== 0)
+          changeActiveCell(
+            selectedPositionRef.current.rowPosition,
+            selectedPositionRef.current.columnPosition - 1
+          );
+        break;
+      case "ArrowRight":
+        if (selectedPositionRef.current.columnPosition !== 8)
+          changeActiveCell(
+            selectedPositionRef.current.rowPosition,
+            selectedPositionRef.current.columnPosition + 1
+          );
+        break;
+      default:
+        break;
+    }
+  };
+
+  // ---------------------------------------------------------------
+
+  const changeActiveCell = (
     rowPosition: number,
     columnPosition: number
   ): void => {
@@ -74,7 +123,7 @@ const Game = (): React.ReactElement => {
       uneditableCells={uneditableCells}
       activeRowPosition={selectedPosition.rowPosition}
       activeColumnPosition={selectedPosition.columnPosition}
-      changeActiveCell={selectNewActiveCell}
+      changeActiveCell={changeActiveCell}
     />
   );
 };
