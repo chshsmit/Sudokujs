@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-20T15:58:13.701Z-07:00
+ * @last-modified 2020-10-21T12:16:00.767Z-07:00
  */
 
 import React from "react";
@@ -16,10 +16,14 @@ const CellStyles = makeStyles({
     height: "50px",
     borderLeft: "1px solid",
     borderTop: "1px solid",
+    borderColor: "black !important",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     fontSize: "large",
+  },
+  editableCell: {
+    color: "blue",
   },
   activeCell: {
     background: "#fafaa0",
@@ -51,6 +55,7 @@ interface CellProps {
   rowPosition: number;
   columnPosition: number;
   onClick: (rowPosition: number, columnPosition: number) => void;
+  editable: boolean;
 }
 
 const Cell = ({
@@ -60,12 +65,14 @@ const Cell = ({
   columnPosition,
   onClick,
   isConstrainingActive,
+  editable,
 }: CellProps): React.ReactElement => {
   const styles = CellStyles();
 
   const cellClass = clsx(
     styles.mainCell,
     active ? styles.activeCell : "",
+    editable ? styles.editableCell : "",
     isConstrainingActive && !active ? styles.constrainingCell : "",
     columnPosition === 8 ? styles.lastColumn : "",
     rowPosition === 8 ? styles.lastRow : "",

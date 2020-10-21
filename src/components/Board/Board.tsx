@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-20T16:01:32.540Z-07:00
+ * @last-modified 2020-10-21T12:06:45.624Z-07:00
  */
 
 import React from "react";
@@ -28,6 +28,7 @@ interface BoardProps {
   changeActiveCell: (rowPosition: number, columnPosition: number) => void;
   activeRowPosition: number;
   activeColumnPosition: number;
+  uneditableCells: Array<string>;
 }
 
 const Board = ({
@@ -35,6 +36,7 @@ const Board = ({
   changeActiveCell,
   activeRowPosition,
   activeColumnPosition,
+  uneditableCells,
 }: BoardProps): React.ReactElement => {
   const classes = BoardStyles();
 
@@ -56,6 +58,7 @@ const Board = ({
               columnIndex
             )
           }
+          editable={!uneditableCells.includes(`${rowIndex}-${columnIndex}`)}
           rowPosition={rowIndex}
           columnPosition={columnIndex}
           value={value}
