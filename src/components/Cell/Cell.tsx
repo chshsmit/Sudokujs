@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-21T14:06:42.324Z-07:00
+ * @last-modified 2020-10-21T14:50:55.643Z-07:00
  */
 
 import React from "react";
@@ -29,7 +29,7 @@ const CellStyles = makeStyles({
     background: "#fafaa0",
   },
   constrainingCell: {
-    background: "rgba(230, 230, 230, .8)",
+    background: "rgba(60, 60, 60, 0.2)",
   },
   lastColumn: {
     borderRight: "4px solid",

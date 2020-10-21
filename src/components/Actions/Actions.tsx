@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-21T14:45:41.841Z-07:00
+ * @last-modified 2020-10-21T14:48:14.086Z-07:00
  */
 
 import React from "react";
@@ -37,8 +37,6 @@ const Actions = ({
   deleteCell,
 }: ActionsProps): React.ReactElement => {
   const classes = ActionsStyles();
-  console.log(activeCellEditable);
-
   return (
     <Grid
       container

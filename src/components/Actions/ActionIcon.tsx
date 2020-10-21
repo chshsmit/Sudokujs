@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-21T14:20:58.321Z-07:00
  * @copyright
- * @last-modified 2020-10-21T14:46:10.413Z-07:00
+ * @last-modified 2020-10-21T14:48:01.016Z-07:00
  */
 
 import React from "react";
@@ -14,7 +14,7 @@ interface ActionIconProps {
   actionText: string;
   icon: React.ReactElement;
   active?: boolean;
-  action: any;
+  action: () => void;
 }
 
 const ActionIcon = ({
