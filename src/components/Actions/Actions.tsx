@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-21T14:56:27.765Z-07:00
+ * @last-modified 2020-10-22T14:11:53.663Z-07:00
  */
 
 import React from "react";
@@ -20,6 +20,7 @@ import NotesIcon from "@material-ui/icons/Notes";
 const ActionsStyles = makeStyles({
   mainActionContainer: {
     marginTop: "3%",
+    marginLeft: "1%",
     width: "10%",
     // margin: "auto",
   },
@@ -28,6 +29,8 @@ const ActionsStyles = makeStyles({
 interface ActionsProps {
   activeCellEditable: boolean;
   deleteCell: (value: number) => void;
+  toggleNoteMode: () => void;
+  noteModeActive: boolean;
 }
 
 // ---------------------------------------------------------------
@@ -35,7 +38,11 @@ interface ActionsProps {
 const Actions = ({
   activeCellEditable,
   deleteCell,
+  toggleNoteMode,
+  noteModeActive,
 }: ActionsProps): React.ReactElement => {
+  console.log({ noteModeActive });
+
   const classes = ActionsStyles();
   return (
     <Grid
@@ -57,9 +64,14 @@ const Actions = ({
         icon={<DeleteIcon fontSize="large" />}
       />
       <ActionIcon
-        action={() => console.log("Hello")}
+        action={toggleNoteMode}
         actionText="Notes"
-        icon={<NotesIcon fontSize="large" />}
+        icon={(
+          <>
+            <NotesIcon fontSize="large" />
+            {noteModeActive ? "On" : "Off"}
+          </>
+        )}
       />
     </Grid>
   );

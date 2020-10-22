@@ -3,16 +3,17 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-21T14:50:55.643Z-07:00
+ * @last-modified 2020-10-22T14:25:06.568Z-07:00
  */
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import classes from "*.module.css";
 
 const CellStyles = makeStyles({
   mainCell: {
-    width: "70px",
+    width: "75px",
     borderLeft: "1px solid",
     borderTop: "1px solid",
     borderColor: "black !important",
@@ -29,22 +30,32 @@ const CellStyles = makeStyles({
     background: "#fafaa0",
   },
   constrainingCell: {
-    background: "rgba(60, 60, 60, 0.2)",
+    background: "rgba(60, 60, 60, 0.1)",
   },
   lastColumn: {
     borderRight: "4px solid",
-    width: "66px",
+    width: "71px",
   },
   lastRow: {
     borderBottom: "4px solid",
   },
   thickLeft: {
     borderLeft: "4px solid",
-    width: "66px",
+    width: "71px",
   },
   thickTop: {
     borderTop: "4px solid",
-    height: "66px",
+    height: "71px",
+  },
+  notesCell: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 24px)",
+    gridTemplateRows: "repeat(3, 24px)",
+    color: "rgba(60, 60, 60, 0.5)",
+    fontSize: "medium",
+  },
+  activeCellValueNote: {
+    color: "black",
   },
 });
 
@@ -56,6 +67,8 @@ interface CellProps {
   columnPosition: number;
   onClick: (rowPosition: number, columnPosition: number) => void;
   editable: boolean;
+  notes: Array<boolean>;
+  activeCellValue: number;
 }
 
 const Cell = ({
@@ -66,6 +79,8 @@ const Cell = ({
   onClick,
   isConstrainingActive,
   editable,
+  notes,
+  activeCellValue,
 }: CellProps): React.ReactElement => {
   const styles = CellStyles();
 
@@ -85,7 +100,28 @@ const Cell = ({
       className={cellClass}
       onClick={() => onClick(rowPosition, columnPosition)}
     >
-      {value ? value : ""}
+      {value ? (
+        value
+      ) : notes.length !== 0 ? (
+        <div className={styles.notesCell}>
+          {notes.map((value, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  activeCellValue === index + 1
+                    ? styles.activeCellValueNote
+                    : ""
+                }
+              >
+                {value ? index + 1 : ""}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

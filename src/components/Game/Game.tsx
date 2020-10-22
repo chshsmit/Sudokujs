@@ -4,14 +4,20 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-21T14:55:21.407Z-07:00
+ * @last-modified 2020-10-22T14:22:33.347Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Grid } from "@material-ui/core";
 
 import { NUMBER_KEYS, NAVIGATION_KEYS } from "components/Game/GameConstants";
-import { createNewGrid, determineUneditableCells } from "utils/utils";
+import {
+  createNewGrid,
+  determineIfGridIsFull,
+  determineUneditableCells,
+  createInitialCellNotes,
+  CellNotes,
+} from "utils/utils";
 import Board from "components/Board/Board";
 import Actions from "components/Actions/Actions";
 
@@ -20,7 +26,13 @@ const Game = (): React.ReactElement => {
   // State and Refs
   // ---------------------------------------------------------------
   const [sudokuGrid, updateGrid] = useState(createNewGrid());
+  const [gridIsFull, setGridIsFull] = useState(false);
   const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
+  const [cellNotes, updateCellNotes] = useState(
+    createInitialCellNotes(sudokuGrid)
+  );
+  const [noteModeActive, changeNoteMode] = useState(false);
+  const noteModeRef = useRef(noteModeActive);
 
   const [selectedPosition, changeSelectedPosition] = useState({
     rowPosition: 0,
@@ -51,7 +63,11 @@ const Game = (): React.ReactElement => {
         `${selectedPositionRef.current.rowPosition}-${selectedPositionRef.current.columnPosition}`
       )
     ) {
-      putNewNumberInGrid(event.key === "Backspace" ? 0 : Number(event.key));
+      if (noteModeRef.current && event.key !== "Backspace") {
+        addNoteToCell(Number(event.key));
+      } else {
+        putNewNumberInGrid(event.key === "Backspace" ? 0 : Number(event.key));
+      }
     } else if (NAVIGATION_KEYS.includes(event.key)) {
       navigateGrid(event.key);
     } else {
@@ -66,6 +82,10 @@ const Game = (): React.ReactElement => {
     copyOfGrid[selectedPositionRef.current.rowPosition][
       selectedPositionRef.current.columnPosition
     ] = value;
+
+    const fullGrid = determineIfGridIsFull(copyOfGrid);
+
+    setGridIsFull(fullGrid);
     updateGrid(copyOfGrid);
   };
 
@@ -119,6 +139,30 @@ const Game = (): React.ReactElement => {
     });
   };
 
+  // ---------------------------------------------------------------
+
+  const addNoteToCell = (noteValue: number): void => {
+    console.log("We are adding a note");
+    const { rowPosition, columnPosition } = selectedPositionRef.current;
+    console.log({ rowPosition, columnPosition, noteValue });
+
+    const copyOfCellNotes = { ...cellNotes };
+    copyOfCellNotes[`${rowPosition}-${columnPosition}`][
+      noteValue - 1
+    ] = !cellNotes[`${rowPosition}-${columnPosition}`][noteValue - 1];
+
+    updateCellNotes(copyOfCellNotes);
+  };
+
+  // ---------------------------------------------------------------
+
+  const toggleNoteMode = (): void => {
+    noteModeRef.current = !noteModeActive;
+    changeNoteMode(!noteModeActive);
+  };
+
+  // ---------------------------------------------------------------
+
   return (
     <Grid container direction="row" justify="center">
       <Board
@@ -127,6 +171,7 @@ const Game = (): React.ReactElement => {
         activeRowPosition={selectedPosition.rowPosition}
         activeColumnPosition={selectedPosition.columnPosition}
         changeActiveCell={changeActiveCell}
+        cellNotes={cellNotes}
       />
       <Actions
         activeCellEditable={
@@ -135,6 +180,8 @@ const Game = (): React.ReactElement => {
           )
         }
         deleteCell={putNewNumberInGrid}
+        toggleNoteMode={toggleNoteMode}
+        noteModeActive={noteModeActive}
       />
     </Grid>
   );

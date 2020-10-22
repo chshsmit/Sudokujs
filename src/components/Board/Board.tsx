@@ -3,20 +3,20 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-21T14:55:37.139Z-07:00
+ * @last-modified 2020-10-22T14:10:29.434Z-07:00
  */
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Cell from "components/Cell/Cell";
-import { checkIfIndexInBox } from "utils/utils";
+import { checkIfIndexInBox, CellNotes } from "utils/utils";
 
 const BoardStyles = makeStyles({
   boardGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(9, 70px)",
-    gridTemplateRows: "repeat(9, 70px)",
+    gridTemplateColumns: "repeat(9, 75px)",
+    gridTemplateRows: "repeat(9, 75px)",
     width: "fit-content",
     marginTop: "2%",
   },
@@ -28,6 +28,7 @@ interface BoardProps {
   activeRowPosition: number;
   activeColumnPosition: number;
   uneditableCells: Array<string>;
+  cellNotes: CellNotes;
 }
 
 const Board = ({
@@ -36,6 +37,7 @@ const Board = ({
   activeRowPosition,
   activeColumnPosition,
   uneditableCells,
+  cellNotes,
 }: BoardProps): React.ReactElement => {
   const classes = BoardStyles();
 
@@ -65,6 +67,8 @@ const Board = ({
           value={value}
           key={`${rowIndex - columnIndex}`}
           onClick={changeActiveCell}
+          notes={cellNotes[`${rowIndex}-${columnIndex}`]}
+          activeCellValue={sudokuGrid[activeRowPosition][activeColumnPosition]}
         />
       );
     });

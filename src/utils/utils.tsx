@@ -3,10 +3,14 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T15:46:03.055Z-07:00
- * @last-modified 2020-10-21T12:03:08.542Z-07:00
+ * @last-modified 2020-10-22T14:13:48.445Z-07:00
  */
 
 //--------------------------------------------------------------------------------------
+
+/**
+ * Create a new sudoku grid
+ */
 
 export const createNewGrid = (): Array<Array<number>> => {
   return [
@@ -22,6 +26,11 @@ export const createNewGrid = (): Array<Array<number>> => {
   ];
 };
 
+/**
+ * returns a list of all points in the grid that are uneditable
+ *
+ * @param grid The current sudoku grid
+ */
 export const determineUneditableCells = (
   grid: Array<Array<number>>
 ): Array<string> => {
@@ -34,6 +43,41 @@ export const determineUneditableCells = (
   });
 
   return uneditableIndexes;
+};
+
+export interface CellNotes {
+  [index: string]: Array<boolean>;
+}
+
+export const createInitialCellNotes = (
+  grid: Array<Array<number>>
+): CellNotes => {
+  const cellNotes: CellNotes = {};
+  grid.forEach((row, rowIndex) => {
+    row.forEach((value, columnIndex) => {
+      if (value === 0)
+        cellNotes[`${rowIndex}-${columnIndex}`] = new Array(9).fill(false);
+    });
+  });
+
+  return cellNotes;
+};
+
+//--------------------------------------------------------------------------------------
+
+/**
+ * Determining if the current grid is full
+ * @param grid The current sudoku grid
+ */
+export const determineIfGridIsFull = (grid: Array<Array<number>>): boolean => {
+  let gridIsFull = true;
+  grid.forEach((row) => {
+    row.forEach((value) => {
+      if (value === 0) gridIsFull = false;
+    });
+  });
+
+  return gridIsFull;
 };
 
 //--------------------------------------------------------------------------------------
