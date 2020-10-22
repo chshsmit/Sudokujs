@@ -3,13 +3,12 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-22T14:25:06.568Z-07:00
+ * @last-modified 2020-10-22T16:43:51.299Z-07:00
  */
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import classes from "*.module.css";
 
 const CellStyles = makeStyles({
   mainCell: {
@@ -31,6 +30,9 @@ const CellStyles = makeStyles({
   },
   constrainingCell: {
     background: "rgba(60, 60, 60, 0.1)",
+  },
+  sameAsActiveCellValue: {
+    background: "rgba(60, 60, 60, 0.3)",
   },
   lastColumn: {
     borderRight: "4px solid",
@@ -92,7 +94,10 @@ const Cell = ({
     columnPosition === 8 ? styles.lastColumn : "",
     rowPosition === 8 ? styles.lastRow : "",
     columnPosition % 3 === 0 ? styles.thickLeft : "",
-    rowPosition % 3 === 0 ? styles.thickTop : ""
+    rowPosition % 3 === 0 ? styles.thickTop : "",
+    activeCellValue === value && value !== 0 && !active
+      ? styles.sameAsActiveCellValue
+      : ""
   );
 
   return (

@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-22T14:22:33.347Z-07:00
+ * @last-modified 2020-10-22T16:46:05.177Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -16,10 +16,12 @@ import {
   determineIfGridIsFull,
   determineUneditableCells,
   createInitialCellNotes,
-  CellNotes,
 } from "utils/utils";
+import SudokuHelper from "utils/SudokuHelper";
 import Board from "components/Board/Board";
 import Actions from "components/Actions/Actions";
+
+const sudokuHelper = new SudokuHelper();
 
 const Game = (): React.ReactElement => {
   // ---------------------------------------------------------------
@@ -27,6 +29,7 @@ const Game = (): React.ReactElement => {
   // ---------------------------------------------------------------
   const [sudokuGrid, updateGrid] = useState(createNewGrid());
   const [gridIsFull, setGridIsFull] = useState(false);
+  const [sudokuIsSolved, setSudokuIsSolved] = useState(false);
   const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
   const [cellNotes, updateCellNotes] = useState(
     createInitialCellNotes(sudokuGrid)
@@ -71,19 +74,35 @@ const Game = (): React.ReactElement => {
     } else if (NAVIGATION_KEYS.includes(event.key)) {
       navigateGrid(event.key);
     } else {
-      console.log("None of these were valid");
+      console.log("Not a valid keypress");
     }
   }, []);
 
   // ---------------------------------------------------------------
 
   const putNewNumberInGrid = (value: number): void => {
+    const { rowPosition, columnPosition } = selectedPositionRef.current;
+
+    if (value === 0) {
+      const copyOfCellNotes = { ...cellNotes };
+      copyOfCellNotes[`${rowPosition}-${columnPosition}`] = new Array(9).fill(
+        false
+      );
+
+      updateCellNotes(copyOfCellNotes);
+    }
     const copyOfGrid = [...sudokuGrid];
     copyOfGrid[selectedPositionRef.current.rowPosition][
       selectedPositionRef.current.columnPosition
     ] = value;
 
-    const fullGrid = determineIfGridIsFull(copyOfGrid);
+    const fullGrid = sudokuHelper.determineIfGridIsFull(copyOfGrid);
+
+    if (fullGrid) {
+      const validSolution = sudokuHelper.boardIsValid(copyOfGrid);
+
+      console.log(validSolution);
+    }
 
     setGridIsFull(fullGrid);
     updateGrid(copyOfGrid);

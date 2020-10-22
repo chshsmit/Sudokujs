@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-22T14:11:53.663Z-07:00
+ * @last-modified 2020-10-22T16:09:27.912Z-07:00
  */
 
 import React from "react";
@@ -41,8 +41,6 @@ const Actions = ({
   toggleNoteMode,
   noteModeActive,
 }: ActionsProps): React.ReactElement => {
-  console.log({ noteModeActive });
-
   const classes = ActionsStyles();
   return (
     <Grid
