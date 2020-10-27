@@ -3,10 +3,16 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-22T16:18:39.205Z-07:00
- * @last-modified 2020-10-27T13:43:19.720Z-07:00
+ * @last-modified 2020-10-27T15:09:04.806Z-07:00
  */
 
 export default class SudokuHelper {
+  NUMBER_KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Backspace"];
+
+  NAVIGATION_KEYS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+
+  //--------------------------------------------------------------------------------------
+
   /**
    * Determining if the current grid is full
    * @param grid The current sudoku grid

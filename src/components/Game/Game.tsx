@@ -4,13 +4,12 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-27T14:02:45.225Z-07:00
+ * @last-modified 2020-10-27T15:09:41.582Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Grid } from "@material-ui/core";
 
-import { NUMBER_KEYS, NAVIGATION_KEYS } from "components/Game/GameConstants";
 import {
   createNewGrid,
   determineIfGridIsFull,
@@ -61,7 +60,7 @@ const Game = (): React.ReactElement => {
 
   const newKeyBoardInput = useCallback((event: KeyboardEvent): void => {
     if (
-      NUMBER_KEYS.includes(event.key) &&
+      sudokuHelper.NUMBER_KEYS.includes(event.key) &&
       !uneditableCells.includes(
         `${selectedPositionRef.current.rowPosition}-${selectedPositionRef.current.columnPosition}`
       )
@@ -71,7 +70,7 @@ const Game = (): React.ReactElement => {
       } else {
         putNewNumberInGrid(event.key === "Backspace" ? 0 : Number(event.key));
       }
-    } else if (NAVIGATION_KEYS.includes(event.key)) {
+    } else if (sudokuHelper.NAVIGATION_KEYS.includes(event.key)) {
       navigateGrid(event.key);
     } else {
       console.log("Not a valid keypress");
