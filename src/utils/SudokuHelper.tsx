@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-22T16:18:39.205Z-07:00
- * @last-modified 2020-10-22T16:41:41.339Z-07:00
+ * @last-modified 2020-10-27T13:43:19.720Z-07:00
  */
 
 export default class SudokuHelper {
@@ -53,6 +53,12 @@ export default class SudokuHelper {
 
   //--------------------------------------------------------------------------------------
 
+  /**
+   * Checking whether or not the solution provided is valid
+   *
+   * @param grid The current grid
+   */
+
   boardIsValid = (grid: Array<Array<number>>): boolean => {
     for (let i = 0; i < 9; i++) {
       const row = new Set(),
@@ -74,7 +80,51 @@ export default class SudokuHelper {
     return true;
   };
 
-  hasDuplicates = (arr: Array<number>): boolean => {
-    return new Set(arr).size !== arr.length;
+  //--------------------------------------------------------------------------------------
+
+  determineIfCellCausingError = (
+    grid: Array<Array<number>>,
+    rowPosition: number,
+    columnPosition: number
+  ): boolean => {
+    let cellCausingError = false;
+
+    // Check the row
+    grid[rowPosition].forEach((element, index) => {
+      if (
+        element === grid[rowPosition][columnPosition] &&
+        index !== columnPosition
+      )
+        cellCausingError = true;
+    });
+
+    // Check the column
+    grid.forEach((row, index) => {
+      if (
+        row[columnPosition] === grid[rowPosition][columnPosition] &&
+        rowPosition !== index
+      )
+        cellCausingError = true;
+    });
+
+    // Check the box
+    const baseRowForBox = rowPosition - (rowPosition % 3);
+    const baseColumnForBox = columnPosition - (columnPosition % 3);
+    for (let row = baseRowForBox; row < baseRowForBox + 3; row++) {
+      for (
+        let column = baseColumnForBox;
+        column < baseColumnForBox + 3;
+        column++
+      ) {
+        if (
+          grid[row][column] === grid[rowPosition][columnPosition] &&
+          row !== rowPosition &&
+          column !== columnPosition
+        )
+          cellCausingError = true;
+      }
+    }
+
+    return cellCausingError;
   };
 }

@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-22T14:10:29.434Z-07:00
+ * @last-modified 2020-10-27T13:29:25.620Z-07:00
  */
 
 import React from "react";
@@ -11,6 +11,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Cell from "components/Cell/Cell";
 import { checkIfIndexInBox, CellNotes } from "utils/utils";
+import SudokuHelper from "utils/SudokuHelper";
+
+const sudokuHelper = new SudokuHelper();
 
 const BoardStyles = makeStyles({
   boardGrid: {
@@ -57,10 +60,13 @@ const Board = ({
               activeColumnPosition,
               rowIndex,
               columnIndex
-            ) ||
-            (value === sudokuGrid[activeRowPosition][activeColumnPosition] &&
-              value !== 0)
+            )
           }
+          cellIsCausingError={sudokuHelper.determineIfCellCausingError(
+            sudokuGrid,
+            rowIndex,
+            columnIndex
+          )}
           editable={!uneditableCells.includes(`${rowIndex}-${columnIndex}`)}
           rowPosition={rowIndex}
           columnPosition={columnIndex}

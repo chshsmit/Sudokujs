@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-22T16:43:51.299Z-07:00
+ * @last-modified 2020-10-27T13:44:10.742Z-07:00
  */
 
 import React from "react";
@@ -59,6 +59,12 @@ const CellStyles = makeStyles({
   activeCellValueNote: {
     color: "black",
   },
+  editableCellError: {
+    color: "rgba(255, 0, 0, .8)",
+  },
+  uneditableCellError: {
+    background: "rgba(255, 0, 0, .3)",
+  },
 });
 
 interface CellProps {
@@ -71,6 +77,7 @@ interface CellProps {
   editable: boolean;
   notes: Array<boolean>;
   activeCellValue: number;
+  cellIsCausingError: boolean;
 }
 
 const Cell = ({
@@ -83,6 +90,7 @@ const Cell = ({
   editable,
   notes,
   activeCellValue,
+  cellIsCausingError,
 }: CellProps): React.ReactElement => {
   const styles = CellStyles();
 
@@ -97,7 +105,9 @@ const Cell = ({
     rowPosition % 3 === 0 ? styles.thickTop : "",
     activeCellValue === value && value !== 0 && !active
       ? styles.sameAsActiveCellValue
-      : ""
+      : "",
+    cellIsCausingError && editable ? styles.editableCellError : "",
+    cellIsCausingError && !editable ? styles.uneditableCellError : ""
   );
 
   return (
