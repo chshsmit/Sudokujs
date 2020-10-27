@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-22T16:46:05.177Z-07:00
+ * @last-modified 2020-10-27T14:02:45.225Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -183,7 +183,8 @@ const Game = (): React.ReactElement => {
   // ---------------------------------------------------------------
 
   return (
-    <Grid container direction="row" justify="center">
+    <Grid container direction="column" justify="center"
+      alignItems="center">
       <Board
         sudokuGrid={sudokuGrid}
         uneditableCells={uneditableCells}

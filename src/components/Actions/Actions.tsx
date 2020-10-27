@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-22T16:09:27.912Z-07:00
+ * @last-modified 2020-10-27T14:04:14.349Z-07:00
  */
 
 import React from "react";
@@ -21,7 +21,7 @@ const ActionsStyles = makeStyles({
   mainActionContainer: {
     marginTop: "3%",
     marginLeft: "1%",
-    width: "10%",
+    width: "50%",
     // margin: "auto",
   },
 });
@@ -45,9 +45,9 @@ const Actions = ({
   return (
     <Grid
       container
-      justify="flex-start"
-      alignItems="flex-start"
-      direction="column"
+      justify="space-around"
+      alignItems="center"
+      direction="row"
       className={classes.mainActionContainer}
     >
       <ActionIcon
