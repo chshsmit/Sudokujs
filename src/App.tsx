@@ -18,7 +18,7 @@ const App = (): React.ReactElement => {
     <div className="App">
       <NavBar />
       {sudokuGameIsActive ? (
-        <Game difficulty="easy" />
+        <Game difficulty={gameDifficulty} />
       ) : (
         <HomePage setGameDifficulty={makeGameActive} />
       )}

@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-28T15:45:09.235Z-07:00
+ * @last-modified 2020-10-28T15:58:25.219Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -27,7 +27,7 @@ import GamePaused from "components/GamePaused/GamePaused";
 const sudokuHelper = new SudokuHelper();
 
 interface GameProps {
-  difficulty: string;
+  difficulty: string | null;
 }
 
 // ---------------------------------------------------------------

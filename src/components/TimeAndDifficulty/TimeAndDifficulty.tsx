@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-10-28T15:43:53.129Z-07:00
+ * @last-modified 2020-10-28T15:59:06.958Z-07:00
  */
 
 // ---------------------------------------------------------------
@@ -13,12 +13,11 @@ import { Grid, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PauseIcon from "@material-ui/icons/Pause";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 // ---------------------------------------------------------------
 
 interface TimeAndDifficultyProps {
-  difficulty: string;
+  difficulty: string | null;
   toggleGamePaused: () => void;
 }
 
@@ -46,7 +45,7 @@ const TimeAndDifficulty = ({
       alignItems="baseline"
     >
       <Grid item>
-        <Typography>{difficulty.toUpperCase()}</Typography>
+        <Typography>{difficulty && difficulty.toUpperCase()}</Typography>
       </Grid>
       <Grid item>
         <Button onClick={toggleGamePaused} startIcon={<PauseIcon />}>
