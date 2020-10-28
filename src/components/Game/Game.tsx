@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-28T14:49:17.320Z-07:00
+ * @last-modified 2020-10-28T15:45:09.235Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -20,6 +20,7 @@ import SudokuHelper from "utils/SudokuHelper";
 import Board from "components/Board/Board";
 import Actions from "components/Actions/Actions";
 import TimeAndDifficulty from "components/TimeAndDifficulty/TimeAndDifficulty";
+import GamePaused from "components/GamePaused/GamePaused";
 
 // ---------------------------------------------------------------
 
@@ -42,6 +43,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   const [cellNotes, updateCellNotes] = useState(
     createInitialCellNotes(sudokuGrid)
   );
+  const [gameIsPaused, setGameIsPaused] = useState(false);
   const [noteModeActive, changeNoteMode] = useState(false);
   const noteModeRef = useRef(noteModeActive);
 
@@ -190,10 +192,21 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
 
   // ---------------------------------------------------------------
 
+  const toggleGamePaused = (): void => {
+    setGameIsPaused(!gameIsPaused);
+  };
+
+  // ---------------------------------------------------------------
+
+  console.log(gameIsPaused);
+
   return (
     <Grid container direction="column" justify="center"
       alignItems="center">
-      <TimeAndDifficulty difficulty={difficulty} />
+      <TimeAndDifficulty
+        toggleGamePaused={toggleGamePaused}
+        difficulty={difficulty}
+      />
       <Board
         sudokuGrid={sudokuGrid}
         uneditableCells={uneditableCells}
@@ -212,6 +225,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
         toggleNoteMode={toggleNoteMode}
         noteModeActive={noteModeActive}
       />
+      <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
     </Grid>
   );
 };
