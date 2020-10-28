@@ -3,13 +3,12 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T15:36:15.542Z-07:00
- * @last-modified 2020-10-28T15:53:24.940Z-07:00
+ * @last-modified 2020-10-28T16:00:35.750Z-07:00
  */
 
 // ---------------------------------------------------------------
 
 import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,22 +17,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
 // ---------------------------------------------------------------
-
-const GamePausedStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    modal: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: "2px solid #000",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  })
-);
 
 interface GamePausedProps {
   isOpen: boolean;
@@ -46,8 +29,6 @@ const GamePaused = ({
   isOpen,
   toggleGamePaused,
 }: GamePausedProps): React.ReactElement => {
-  const classes = GamePausedStyles();
-
   return (
     <Dialog open={isOpen} onClose={toggleGamePaused}>
       <DialogTitle>Paused</DialogTitle>
