@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-27T15:09:41.582Z-07:00
+ * @last-modified 2020-10-28T14:12:43.633Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -20,13 +20,21 @@ import SudokuHelper from "utils/SudokuHelper";
 import Board from "components/Board/Board";
 import Actions from "components/Actions/Actions";
 
+// ---------------------------------------------------------------
+
 const sudokuHelper = new SudokuHelper();
 
-const Game = (): React.ReactElement => {
+interface GameProps {
+  difficulty: string;
+}
+
+// ---------------------------------------------------------------
+
+const Game = ({ difficulty }: GameProps): React.ReactElement => {
   // ---------------------------------------------------------------
   // State and Refs
   // ---------------------------------------------------------------
-  const [sudokuGrid, updateGrid] = useState(createNewGrid());
+  const [sudokuGrid, updateGrid] = useState(createNewGrid(difficulty));
   const [gridIsFull, setGridIsFull] = useState(false);
   const [sudokuIsSolved, setSudokuIsSolved] = useState(false);
   const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));

@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T15:46:03.055Z-07:00
- * @last-modified 2020-10-22T14:13:48.445Z-07:00
+ * @last-modified 2020-10-28T14:12:36.477Z-07:00
  */
 
 //--------------------------------------------------------------------------------------
@@ -12,7 +12,9 @@
  * Create a new sudoku grid
  */
 
-export const createNewGrid = (): Array<Array<number>> => {
+export const createNewGrid = (difficulty: string): Array<Array<number>> => {
+  console.log(difficulty);
+
   return [
     [0, 0, 0, 2, 4, 9, 1, 0, 0],
     [0, 1, 0, 5, 8, 0, 0, 0, 6],
