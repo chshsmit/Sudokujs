@@ -4,11 +4,15 @@
  * @description
  * @created 2020-10-21T14:20:58.321Z-07:00
  * @copyright
- * @last-modified 2020-10-27T14:05:01.539Z-07:00
+ * @last-modified 2020-10-28T14:45:08.293Z-07:00
  */
+
+// ---------------------------------------------------------------
 
 import React from "react";
 import { Grid, IconButton, Tooltip } from "@material-ui/core";
+
+// ---------------------------------------------------------------
 
 interface ActionIconProps {
   actionText: string;
@@ -16,6 +20,8 @@ interface ActionIconProps {
   active?: boolean;
   action: () => void;
 }
+
+// ---------------------------------------------------------------
 
 const ActionIcon = ({
   actionText,

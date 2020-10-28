@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-27T13:29:25.620Z-07:00
+ * @last-modified 2020-10-28T14:48:38.371Z-07:00
  */
 
 import React from "react";
@@ -21,7 +21,6 @@ const BoardStyles = makeStyles({
     gridTemplateColumns: "repeat(9, 75px)",
     gridTemplateRows: "repeat(9, 75px)",
     width: "fit-content",
-    marginTop: "2%",
   },
 });
 

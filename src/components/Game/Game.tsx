@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-28T14:12:43.633Z-07:00
+ * @last-modified 2020-10-28T14:49:17.320Z-07:00
  */
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
@@ -19,6 +19,7 @@ import {
 import SudokuHelper from "utils/SudokuHelper";
 import Board from "components/Board/Board";
 import Actions from "components/Actions/Actions";
+import TimeAndDifficulty from "components/TimeAndDifficulty/TimeAndDifficulty";
 
 // ---------------------------------------------------------------
 
@@ -192,6 +193,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   return (
     <Grid container direction="column" justify="center"
       alignItems="center">
+      <TimeAndDifficulty difficulty={difficulty} />
       <Board
         sudokuGrid={sudokuGrid}
         uneditableCells={uneditableCells}
