@@ -3,11 +3,12 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:48:46.510Z-07:00
- * @last-modified 2020-10-27T13:44:10.742Z-07:00
+ * @last-modified 2020-10-30T13:05:58.518Z-07:00
  */
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 import clsx from "clsx";
 
 const CellStyles = makeStyles({
@@ -116,7 +117,9 @@ const Cell = ({
       onClick={() => onClick(rowPosition, columnPosition)}
     >
       {value ? (
-        value
+        <Fade in>
+          <div>{value}</div>
+        </Fade>
       ) : notes.length !== 0 ? (
         <div className={styles.notesCell}>
           {notes.map((value, index) => {

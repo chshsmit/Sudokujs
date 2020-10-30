@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T12:35:55.265Z-07:00
+ * @last-modified 2020-10-30T13:49:45.636Z-07:00
  */
 
 import React, {
@@ -15,6 +15,7 @@ import React, {
   useMemo,
 } from "react";
 import { Grid } from "@material-ui/core";
+import Zoom from "@material-ui/core/Zoom";
 
 import { determineUneditableCells, createInitialCellNotes } from "utils/utils";
 import SudokuHelper from "utils/SudokuHelper";
@@ -33,15 +34,14 @@ interface GameProps {
 // ---------------------------------------------------------------
 
 const Game = ({ difficulty }: GameProps): React.ReactElement => {
-  // Sudoku Solver that will generate and solve the current puzzle
-  // const sudokuSolver = new SudokuSolver(difficulty);
-
   // ---------------------------------------------------------------
   // State and Refs
   // ---------------------------------------------------------------
 
   const sudokuHelper = useMemo(() => new SudokuHelper(), []);
-  const sudokuSolver = useMemo(() => new SudokuSolver(difficulty), []);
+  const sudokuSolver = useMemo(() => new SudokuSolver(difficulty), [
+    difficulty,
+  ]);
 
   const [sudokuGrid, updateGrid] = useState(sudokuSolver.createNewGrid());
   const [gridIsFull, setGridIsFull] = useState(false);
@@ -72,97 +72,119 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
     };
   });
 
+  const putNewNumberInGrid = useCallback(
+    (value: number): void => {
+      const { rowPosition, columnPosition } = selectedPositionRef.current;
+
+      if (value === 0) {
+        const copyOfCellNotes = { ...cellNotes };
+        copyOfCellNotes[`${rowPosition}-${columnPosition}`] = new Array(9).fill(
+          false
+        );
+
+        updateCellNotes(copyOfCellNotes);
+      }
+      const copyOfGrid = [...sudokuGrid];
+      copyOfGrid[selectedPositionRef.current.rowPosition][
+        selectedPositionRef.current.columnPosition
+      ] = value;
+
+      const fullGrid = sudokuHelper.determineIfGridIsFull(copyOfGrid);
+
+      if (fullGrid) {
+        const validSolution = sudokuHelper.boardIsValid(copyOfGrid);
+
+        console.log(validSolution);
+      }
+
+      setGridIsFull(fullGrid);
+      updateGrid(copyOfGrid);
+    },
+    [cellNotes, sudokuHelper, sudokuGrid]
+  );
+
   // ---------------------------------------------------------------
   // Keyboard handlers
   // ---------------------------------------------------------------
 
-  const newKeyBoardInput = useCallback((event: KeyboardEvent): void => {
-    if (
-      sudokuHelper.NUMBER_KEYS.includes(event.key) &&
-      !uneditableCells.includes(
-        `${selectedPositionRef.current.rowPosition}-${selectedPositionRef.current.columnPosition}`
-      )
-    ) {
-      if (noteModeRef.current && event.key !== "Backspace") {
-        addNoteToCell(Number(event.key));
+  const newKeyBoardInput = useCallback(
+    (event: KeyboardEvent): void => {
+      const addNoteToCell = (noteValue: number): void => {
+        const { rowPosition, columnPosition } = selectedPositionRef.current;
+
+        const copyOfCellNotes = { ...cellNotes };
+        copyOfCellNotes[`${rowPosition}-${columnPosition}`][
+          noteValue - 1
+        ] = !cellNotes[`${rowPosition}-${columnPosition}`][noteValue - 1];
+
+        updateCellNotes(copyOfCellNotes);
+      };
+
+      const navigateGrid = (direction: string): void => {
+        switch (direction) {
+          case "ArrowUp":
+            if (selectedPositionRef.current.rowPosition !== 0)
+              changeActiveCell(
+                selectedPositionRef.current.rowPosition - 1,
+                selectedPositionRef.current.columnPosition
+              );
+            break;
+          case "ArrowDown":
+            if (selectedPositionRef.current.rowPosition !== 8)
+              changeActiveCell(
+                selectedPositionRef.current.rowPosition + 1,
+                selectedPositionRef.current.columnPosition
+              );
+            break;
+          case "ArrowLeft":
+            if (selectedPositionRef.current.columnPosition !== 0)
+              changeActiveCell(
+                selectedPositionRef.current.rowPosition,
+                selectedPositionRef.current.columnPosition - 1
+              );
+            break;
+          case "ArrowRight":
+            if (selectedPositionRef.current.columnPosition !== 8)
+              changeActiveCell(
+                selectedPositionRef.current.rowPosition,
+                selectedPositionRef.current.columnPosition + 1
+              );
+            break;
+          default:
+            break;
+        }
+      };
+
+      if (
+        sudokuHelper.NUMBER_KEYS.includes(event.key) &&
+        !uneditableCells.includes(
+          `${selectedPositionRef.current.rowPosition}-${selectedPositionRef.current.columnPosition}`
+        )
+      ) {
+        if (noteModeRef.current && event.key !== "Backspace") {
+          addNoteToCell(Number(event.key));
+        } else {
+          putNewNumberInGrid(event.key === "Backspace" ? 0 : Number(event.key));
+        }
+      } else if (sudokuHelper.NAVIGATION_KEYS.includes(event.key)) {
+        navigateGrid(event.key);
+      } else if (event.key === "n") {
+        toggleNoteMode();
       } else {
-        putNewNumberInGrid(event.key === "Backspace" ? 0 : Number(event.key));
+        console.log("Not a valid keypress");
       }
-    } else if (sudokuHelper.NAVIGATION_KEYS.includes(event.key)) {
-      navigateGrid(event.key);
-    } else if (event.key === "n") {
-      toggleNoteMode();
-    } else {
-      console.log("Not a valid keypress");
-    }
-  }, []);
+    },
+    [
+      cellNotes,
+      putNewNumberInGrid,
+      uneditableCells,
+      sudokuHelper.NAVIGATION_KEYS,
+      sudokuHelper.NUMBER_KEYS,
+    ]
+  );
 
   // ---------------------------------------------------------------
-
-  const putNewNumberInGrid = (value: number): void => {
-    const { rowPosition, columnPosition } = selectedPositionRef.current;
-
-    if (value === 0) {
-      const copyOfCellNotes = { ...cellNotes };
-      copyOfCellNotes[`${rowPosition}-${columnPosition}`] = new Array(9).fill(
-        false
-      );
-
-      updateCellNotes(copyOfCellNotes);
-    }
-    const copyOfGrid = [...sudokuGrid];
-    copyOfGrid[selectedPositionRef.current.rowPosition][
-      selectedPositionRef.current.columnPosition
-    ] = value;
-
-    const fullGrid = sudokuHelper.determineIfGridIsFull(copyOfGrid);
-
-    if (fullGrid) {
-      const validSolution = sudokuHelper.boardIsValid(copyOfGrid);
-
-      console.log(validSolution);
-    }
-
-    setGridIsFull(fullGrid);
-    updateGrid(copyOfGrid);
-  };
-
   // ---------------------------------------------------------------
-
-  const navigateGrid = (direction: string): void => {
-    switch (direction) {
-      case "ArrowUp":
-        if (selectedPositionRef.current.rowPosition !== 0)
-          changeActiveCell(
-            selectedPositionRef.current.rowPosition - 1,
-            selectedPositionRef.current.columnPosition
-          );
-        break;
-      case "ArrowDown":
-        if (selectedPositionRef.current.rowPosition !== 8)
-          changeActiveCell(
-            selectedPositionRef.current.rowPosition + 1,
-            selectedPositionRef.current.columnPosition
-          );
-        break;
-      case "ArrowLeft":
-        if (selectedPositionRef.current.columnPosition !== 0)
-          changeActiveCell(
-            selectedPositionRef.current.rowPosition,
-            selectedPositionRef.current.columnPosition - 1
-          );
-        break;
-      case "ArrowRight":
-        if (selectedPositionRef.current.columnPosition !== 8)
-          changeActiveCell(
-            selectedPositionRef.current.rowPosition,
-            selectedPositionRef.current.columnPosition + 1
-          );
-        break;
-      default:
-        break;
-    }
-  };
 
   // ---------------------------------------------------------------
 
@@ -178,18 +200,6 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   };
 
   // ---------------------------------------------------------------
-
-  const addNoteToCell = (noteValue: number): void => {
-    const { rowPosition, columnPosition } = selectedPositionRef.current;
-
-    const copyOfCellNotes = { ...cellNotes };
-    copyOfCellNotes[`${rowPosition}-${columnPosition}`][
-      noteValue - 1
-    ] = !cellNotes[`${rowPosition}-${columnPosition}`][noteValue - 1];
-
-    updateCellNotes(copyOfCellNotes);
-  };
-
   // ---------------------------------------------------------------
 
   const toggleNoteMode = (): void => {
@@ -206,34 +216,36 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   // ---------------------------------------------------------------
 
   return (
-    <Grid container direction="column" justify="center"
-      alignItems="center">
-      <TimeAndDifficulty
-        toggleGamePaused={toggleGamePaused}
-        difficulty={difficulty}
-        gamePaused={gameIsPaused}
-      />
-      <Board
-        sudokuGrid={sudokuGrid}
-        uneditableCells={uneditableCells}
-        activeRowPosition={selectedPosition.rowPosition}
-        activeColumnPosition={selectedPosition.columnPosition}
-        changeActiveCell={changeActiveCell}
-        cellNotes={cellNotes}
-        sudokuHelper={sudokuHelper}
-      />
-      <Actions
-        activeCellEditable={
-          !uneditableCells.includes(
-            `${selectedPosition.rowPosition}-${selectedPosition.columnPosition}`
-          )
-        }
-        deleteCell={putNewNumberInGrid}
-        toggleNoteMode={toggleNoteMode}
-        noteModeActive={noteModeActive}
-      />
-      <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
-    </Grid>
+    <Zoom in>
+      <Grid container direction="column" justify="center"
+        alignItems="center">
+        <TimeAndDifficulty
+          toggleGamePaused={toggleGamePaused}
+          difficulty={difficulty}
+          gamePaused={gameIsPaused}
+        />
+        <Board
+          sudokuGrid={sudokuGrid}
+          uneditableCells={uneditableCells}
+          activeRowPosition={selectedPosition.rowPosition}
+          activeColumnPosition={selectedPosition.columnPosition}
+          changeActiveCell={changeActiveCell}
+          cellNotes={cellNotes}
+          sudokuHelper={sudokuHelper}
+        />
+        <Actions
+          activeCellEditable={
+            !uneditableCells.includes(
+              `${selectedPosition.rowPosition}-${selectedPosition.columnPosition}`
+            )
+          }
+          deleteCell={putNewNumberInGrid}
+          toggleNoteMode={toggleNoteMode}
+          noteModeActive={noteModeActive}
+        />
+        <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
+      </Grid>
+    </Zoom>
   );
 };
 

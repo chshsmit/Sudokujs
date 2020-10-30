@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-28T14:43:52.979Z-07:00
+ * @last-modified 2020-10-30T12:36:49.583Z-07:00
  */
 
 import React from "react";
@@ -58,12 +58,12 @@ const Actions = ({
       <ActionIcon
         action={() => deleteCell(0)}
         active={activeCellEditable}
-        actionText="Delete"
+        actionText="Delete (Backspace)"
         icon={<DeleteIcon fontSize="large" />}
       />
       <ActionIcon
         action={toggleNoteMode}
-        actionText="Notes"
+        actionText="Notes (n)"
         icon={(
           <>
             <NotesIcon fontSize="large" />
