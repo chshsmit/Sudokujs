@@ -7,7 +7,7 @@ import HomePage from "components/HomePage/HomePage";
 
 const App = (): React.ReactElement => {
   const [sudokuGameIsActive, toggleSudokuGameIsActive] = useState(false);
-  const [gameDifficulty, setGameDifficulty] = useState<null | string>(null);
+  const [gameDifficulty, setGameDifficulty] = useState<string>("");
 
   const makeGameActive = (wantedDifficulty: string) => {
     setGameDifficulty(wantedDifficulty);

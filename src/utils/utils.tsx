@@ -3,33 +3,10 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T15:46:03.055Z-07:00
- * @last-modified 2020-10-29T14:17:03.704Z-07:00
+ * @last-modified 2020-10-30T10:58:11.064Z-07:00
  */
 
 //--------------------------------------------------------------------------------------
-
-export const createNewGridTest = (
-  difficulty: string | null
-): Array<Array<number>> => {
-  console.log(difficulty);
-  // initialize empty 9X9 grid
-  const grid: Array<Array<number>> = [];
-  for (let rows = 0; rows < 9; rows++) grid.push(new Array(9).fill(0));
-
-  return [[1]];
-};
-
-export const checkGrid = (grid: Array<Array<number>>): boolean => {
-  let gridIsComplete = true;
-
-  grid.forEach((row) => {
-    row.forEach((value) => {
-      if (value === 0) gridIsComplete = false;
-    });
-  });
-
-  return gridIsComplete;
-};
 
 /**
  * Create a new sudoku grid
@@ -73,6 +50,8 @@ export const determineUneditableCells = (
 
   return uneditableIndexes;
 };
+
+//--------------------------------------------------------------------------------------
 
 export interface CellNotes {
   [index: string]: Array<boolean>;
@@ -137,4 +116,28 @@ export const checkIfIndexInBox = (
     checkPositionColumn <= baseColumnForBox + 2 &&
     checkPositionColumn >= baseColumnForBox
   );
+};
+
+//--------------------------------------------------------------------------------------
+
+export const shuffle = (
+  array: Array<number | string>
+): Array<number | string> => {
+  let currentIndex = array.length;
+  let temporaryValue: number | string;
+  let randomIndex: number;
+
+  // While there are still elements available to shuffle
+  while (currentIndex !== 0) {
+    //Pick a remaining element
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // Swap with the current
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 };

@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-22T16:18:39.205Z-07:00
- * @last-modified 2020-10-29T16:32:47.798Z-07:00
+ * @last-modified 2020-10-30T10:59:27.996Z-07:00
  */
 
 export default class SudokuHelper {
@@ -120,15 +120,15 @@ export default class SudokuHelper {
     let cellCausingError = false;
 
     // Check the row
-    if (this._checkRow(grid[rowPosition], columnPosition))
+    if (this.valueInRow(grid[rowPosition], columnPosition))
       cellCausingError = true;
 
     // Check the column
-    if (this._checkColumn(grid, rowPosition, columnPosition))
+    if (this.valueInColumn(grid, rowPosition, columnPosition))
       cellCausingError = true;
 
     // Check the box
-    if (this._checkBox(grid, rowPosition, columnPosition))
+    if (this.valueInBox(grid, rowPosition, columnPosition))
       cellCausingError = true;
 
     return cellCausingError;
@@ -143,7 +143,7 @@ export default class SudokuHelper {
    * @param columnPosition The position the current value was put in
    */
 
-  private _checkRow = (row: Array<number>, columnPosition: number): boolean => {
+  valueInRow = (row: Array<number>, columnPosition: number): boolean => {
     let errorInRow = false;
     row.forEach((element, index) => {
       if (element === row[columnPosition] && index !== columnPosition)
@@ -163,7 +163,7 @@ export default class SudokuHelper {
    * @param columnPosition The column position of the value we are checking
    */
 
-  private _checkColumn = (
+  valueInColumn = (
     grid: Array<Array<number>>,
     rowPosition: number,
     columnPosition: number
@@ -191,7 +191,7 @@ export default class SudokuHelper {
    * @param columnPosition The column position of the value we are checking
    */
 
-  private _checkBox = (
+  valueInBox = (
     grid: Array<Array<number>>,
     rowPosition: number,
     columnPosition: number
