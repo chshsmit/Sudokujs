@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-22T16:18:39.205Z-07:00
- * @last-modified 2020-10-27T15:11:09.446Z-07:00
+ * @last-modified 2020-10-29T16:32:47.798Z-07:00
  */
 
 export default class SudokuHelper {
@@ -104,6 +104,14 @@ export default class SudokuHelper {
 
   //--------------------------------------------------------------------------------------
 
+  /**
+   * Determining if the value in the current row and column is causing an error anywhere in the grid
+   *
+   * @param grid The current state of the grid
+   * @param rowPosition The row position of the value we are checking
+   * @param columnPosition The column position of the value we are checking
+   */
+
   determineIfCellCausingError = (
     grid: Array<Array<number>>,
     rowPosition: number,
@@ -112,22 +120,83 @@ export default class SudokuHelper {
     let cellCausingError = false;
 
     // Check the row
-    grid[rowPosition].forEach((element, index) => {
-      if (
-        element === grid[rowPosition][columnPosition] &&
-        index !== columnPosition
-      )
-        cellCausingError = true;
-    });
+    if (this._checkRow(grid[rowPosition], columnPosition))
+      cellCausingError = true;
 
     // Check the column
+    if (this._checkColumn(grid, rowPosition, columnPosition))
+      cellCausingError = true;
+
+    // Check the box
+    if (this._checkBox(grid, rowPosition, columnPosition))
+      cellCausingError = true;
+
+    return cellCausingError;
+  };
+
+  //--------------------------------------------------------------------------------------
+
+  /**
+   * Checking if the value causes an error with the row it is in
+   *
+   * @param row The row we need to check
+   * @param columnPosition The position the current value was put in
+   */
+
+  private _checkRow = (row: Array<number>, columnPosition: number): boolean => {
+    let errorInRow = false;
+    row.forEach((element, index) => {
+      if (element === row[columnPosition] && index !== columnPosition)
+        errorInRow = true;
+    });
+
+    return errorInRow;
+  };
+
+  //--------------------------------------------------------------------------------------
+
+  /**
+   * Checking if the value causes an error with the column it is in
+   *
+   * @param grid The current state of the grid
+   * @param rowPosition The row position of the value we are checking
+   * @param columnPosition The column position of the value we are checking
+   */
+
+  private _checkColumn = (
+    grid: Array<Array<number>>,
+    rowPosition: number,
+    columnPosition: number
+  ): boolean => {
+    let errorInColumn = false;
+
     grid.forEach((row, index) => {
       if (
         row[columnPosition] === grid[rowPosition][columnPosition] &&
         rowPosition !== index
       )
-        cellCausingError = true;
+        errorInColumn = true;
     });
+
+    return errorInColumn;
+  };
+
+  //--------------------------------------------------------------------------------------
+
+  /**
+   * Checking if the value causes an error with the 3x3 box it is in
+   *
+   * @param grid The current state of the grid
+   * @param rowPosition The row position of the value we are checking
+   * @param columnPosition The column position of the value we are checking
+   */
+
+  private _checkBox = (
+    grid: Array<Array<number>>,
+    rowPosition: number,
+    columnPosition: number
+  ): boolean => {
+    let errorInBox = false;
 
     // Check the box
     const baseRowForBox = rowPosition - (rowPosition % 3);
@@ -143,10 +212,10 @@ export default class SudokuHelper {
           row !== rowPosition &&
           column !== columnPosition
         )
-          cellCausingError = true;
+          errorInBox = true;
       }
     }
 
-    return cellCausingError;
+    return errorInBox;
   };
 }

@@ -3,10 +3,33 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T15:46:03.055Z-07:00
- * @last-modified 2020-10-28T15:58:38.745Z-07:00
+ * @last-modified 2020-10-29T14:17:03.704Z-07:00
  */
 
 //--------------------------------------------------------------------------------------
+
+export const createNewGridTest = (
+  difficulty: string | null
+): Array<Array<number>> => {
+  console.log(difficulty);
+  // initialize empty 9X9 grid
+  const grid: Array<Array<number>> = [];
+  for (let rows = 0; rows < 9; rows++) grid.push(new Array(9).fill(0));
+
+  return [[1]];
+};
+
+export const checkGrid = (grid: Array<Array<number>>): boolean => {
+  let gridIsComplete = true;
+
+  grid.forEach((row) => {
+    row.forEach((value) => {
+      if (value === 0) gridIsComplete = false;
+    });
+  });
+
+  return gridIsComplete;
+};
 
 /**
  * Create a new sudoku grid
@@ -29,6 +52,8 @@ export const createNewGrid = (
     [0, 0, 5, 4, 2, 8, 0, 0, 0],
   ];
 };
+
+//--------------------------------------------------------------------------------------
 
 /**
  * returns a list of all points in the grid that are uneditable
