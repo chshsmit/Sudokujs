@@ -44,6 +44,7 @@ const App = (): React.ReactElement => {
         title="Leave?"
         message="All of your progress will be lost, are you sure you want to continue?"
         confirmAction={resetGameState}
+        confirmActionText="Leave"
         cancelAction={toggleConfirmLeaveOpen}
       />
     </div>
