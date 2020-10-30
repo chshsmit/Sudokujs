@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T11:39:22.242Z-07:00
+ * @last-modified 2020-10-30T12:23:48.112Z-07:00
  */
 
 import React, {
@@ -209,6 +209,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
       <TimeAndDifficulty
         toggleGamePaused={toggleGamePaused}
         difficulty={difficulty}
+        gamePaused={gameIsPaused}
       />
       <Board
         sudokuGrid={sudokuGrid}

@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-10-28T15:59:59.030Z-07:00
+ * @last-modified 2020-10-30T12:23:33.218Z-07:00
  */
 
 // ---------------------------------------------------------------
@@ -13,12 +13,14 @@ import { Grid, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PauseIcon from "@material-ui/icons/Pause";
+import PlayIcon from "@material-ui/icons/PlayArrow";
 
 // ---------------------------------------------------------------
 
 interface TimeAndDifficultyProps {
   difficulty: string | null;
   toggleGamePaused: () => void;
+  gamePaused: boolean;
 }
 
 const TimeAndDifficultyStyles = makeStyles({
@@ -33,6 +35,7 @@ const TimeAndDifficultyStyles = makeStyles({
 const TimeAndDifficulty = ({
   difficulty,
   toggleGamePaused,
+  gamePaused,
 }: TimeAndDifficultyProps): React.ReactElement => {
   const classes = TimeAndDifficultyStyles();
 
@@ -48,9 +51,13 @@ const TimeAndDifficulty = ({
         <Typography>{difficulty && difficulty.toUpperCase()}</Typography>
       </Grid>
       <Grid item>
-        <Button onClick={toggleGamePaused} startIcon={<PauseIcon />}>
-          Pause
-        </Button>
+        {gamePaused ? (
+          <Button startIcon={<PlayIcon />}>Paused</Button>
+        ) : (
+          <Button onClick={toggleGamePaused} startIcon={<PauseIcon />}>
+            Pause
+          </Button>
+        )}
       </Grid>
       <Grid item>
         <Typography>0:00</Typography>
