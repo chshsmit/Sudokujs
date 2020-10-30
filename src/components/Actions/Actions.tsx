@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-30T12:36:49.583Z-07:00
+ * @last-modified 2020-10-30T14:07:48.483Z-07:00
  */
 
 import React from "react";
@@ -50,11 +50,11 @@ const Actions = ({
       direction="row"
       className={classes.mainActionContainer}
     >
-      <ActionIcon
+      {/* <ActionIcon
         action={() => console.log("Hello")}
         actionText="Undo"
         icon={<UndoIcon fontSize="large" />}
-      />
+      /> */}
       <ActionIcon
         action={() => deleteCell(0)}
         active={activeCellEditable}

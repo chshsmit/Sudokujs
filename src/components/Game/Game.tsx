@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T13:49:45.636Z-07:00
+ * @last-modified 2020-10-30T14:23:32.551Z-07:00
  */
 
 import React, {
@@ -94,7 +94,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
       if (fullGrid) {
         const validSolution = sudokuHelper.boardIsValid(copyOfGrid);
 
-        console.log(validSolution);
+        setSudokuIsSolved(validSolution);
       }
 
       setGridIsFull(fullGrid);
@@ -223,6 +223,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
           toggleGamePaused={toggleGamePaused}
           difficulty={difficulty}
           gamePaused={gameIsPaused}
+          solved={sudokuIsSolved}
         />
         <Board
           sudokuGrid={sudokuGrid}
@@ -243,6 +244,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
           toggleNoteMode={toggleNoteMode}
           noteModeActive={noteModeActive}
         />
+        {sudokuIsSolved && <Grid item>Solved success</Grid>}
         <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
       </Grid>
     </Zoom>

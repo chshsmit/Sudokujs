@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-10-30T13:41:25.927Z-07:00
+ * @last-modified 2020-10-30T14:23:11.704Z-07:00
  */
 
 // ---------------------------------------------------------------
@@ -21,6 +21,7 @@ interface TimeAndDifficultyProps {
   difficulty: string | null;
   toggleGamePaused: () => void;
   gamePaused: boolean;
+  solved: boolean;
 }
 
 const TimeAndDifficultyStyles = makeStyles({
@@ -36,6 +37,7 @@ const TimeAndDifficulty = ({
   difficulty,
   toggleGamePaused,
   gamePaused,
+  solved,
 }: TimeAndDifficultyProps): React.ReactElement => {
   const classes = TimeAndDifficultyStyles();
 
@@ -48,7 +50,7 @@ const TimeAndDifficulty = ({
       setSeconds(secondsRef.current);
     }, 1000);
 
-    if (gamePaused) {
+    if (gamePaused || solved) {
       clearInterval(interval);
     }
 
