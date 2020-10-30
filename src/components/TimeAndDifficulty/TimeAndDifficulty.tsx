@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-10-30T14:23:11.704Z-07:00
+ * @last-modified 2020-10-30T14:25:29.184Z-07:00
  */
 
 // ---------------------------------------------------------------
@@ -55,7 +55,7 @@ const TimeAndDifficulty = ({
     }
 
     return () => clearInterval(interval);
-  }, [gamePaused]);
+  }, [gamePaused, solved]);
 
   return (
     <Grid
