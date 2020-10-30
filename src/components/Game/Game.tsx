@@ -4,18 +4,19 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T11:14:47.159Z-07:00
+ * @last-modified 2020-10-30T11:39:22.242Z-07:00
  */
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { Grid } from "@material-ui/core";
 
-import {
-  createNewGrid,
-  determineIfGridIsFull,
-  determineUneditableCells,
-  createInitialCellNotes,
-} from "utils/utils";
+import { determineUneditableCells, createInitialCellNotes } from "utils/utils";
 import SudokuHelper from "utils/SudokuHelper";
 import SudokuSolver from "utils/SudokuSolver";
 import Board from "components/Board/Board";
@@ -25,8 +26,6 @@ import GamePaused from "components/GamePaused/GamePaused";
 
 // ---------------------------------------------------------------
 
-const sudokuHelper = new SudokuHelper();
-
 interface GameProps {
   difficulty: string;
 }
@@ -34,10 +33,16 @@ interface GameProps {
 // ---------------------------------------------------------------
 
 const Game = ({ difficulty }: GameProps): React.ReactElement => {
+  // Sudoku Solver that will generate and solve the current puzzle
+  // const sudokuSolver = new SudokuSolver(difficulty);
+
   // ---------------------------------------------------------------
   // State and Refs
   // ---------------------------------------------------------------
-  const sudokuSolver = new SudokuSolver(difficulty);
+
+  const sudokuHelper = useMemo(() => new SudokuHelper(), []);
+  const sudokuSolver = useMemo(() => new SudokuSolver(difficulty), []);
+
   const [sudokuGrid, updateGrid] = useState(sudokuSolver.createNewGrid());
   const [gridIsFull, setGridIsFull] = useState(false);
   const [sudokuIsSolved, setSudokuIsSolved] = useState(false);
@@ -173,9 +178,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   // ---------------------------------------------------------------
 
   const addNoteToCell = (noteValue: number): void => {
-    console.log("We are adding a note");
     const { rowPosition, columnPosition } = selectedPositionRef.current;
-    console.log({ rowPosition, columnPosition, noteValue });
 
     const copyOfCellNotes = { ...cellNotes };
     copyOfCellNotes[`${rowPosition}-${columnPosition}`][
@@ -200,8 +203,6 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
 
   // ---------------------------------------------------------------
 
-  console.log(gameIsPaused);
-
   return (
     <Grid container direction="column" justify="center"
       alignItems="center">
@@ -216,6 +217,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
         activeColumnPosition={selectedPosition.columnPosition}
         changeActiveCell={changeActiveCell}
         cellNotes={cellNotes}
+        sudokuHelper={sudokuHelper}
       />
       <Actions
         activeCellEditable={

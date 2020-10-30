@@ -3,32 +3,8 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T15:46:03.055Z-07:00
- * @last-modified 2020-10-30T10:58:11.064Z-07:00
+ * @last-modified 2020-10-30T11:19:59.522Z-07:00
  */
-
-//--------------------------------------------------------------------------------------
-
-/**
- * Create a new sudoku grid
- */
-
-export const createNewGrid = (
-  difficulty: string | null
-): Array<Array<number>> => {
-  console.log(difficulty);
-
-  return [
-    [0, 0, 0, 2, 4, 9, 1, 0, 0],
-    [0, 1, 0, 5, 8, 0, 0, 0, 6],
-    [0, 0, 7, 0, 3, 0, 2, 0, 5],
-    [1, 7, 0, 0, 0, 4, 6, 0, 0],
-    [0, 3, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 4, 9, 0, 0, 0, 7, 3],
-    [3, 0, 8, 0, 1, 0, 7, 0, 0],
-    [2, 0, 0, 0, 9, 3, 0, 5, 0],
-    [0, 0, 5, 4, 2, 8, 0, 0, 0],
-  ];
-};
 
 //--------------------------------------------------------------------------------------
 
@@ -69,23 +45,6 @@ export const createInitialCellNotes = (
   });
 
   return cellNotes;
-};
-
-//--------------------------------------------------------------------------------------
-
-/**
- * Determining if the current grid is full
- * @param grid The current sudoku grid
- */
-export const determineIfGridIsFull = (grid: Array<Array<number>>): boolean => {
-  let gridIsFull = true;
-  grid.forEach((row) => {
-    row.forEach((value) => {
-      if (value === 0) gridIsFull = false;
-    });
-  });
-
-  return gridIsFull;
 };
 
 //--------------------------------------------------------------------------------------

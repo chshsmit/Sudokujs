@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:10:16.632Z-07:00
- * @last-modified 2020-10-28T14:39:20.689Z-07:00
+ * @last-modified 2020-10-30T11:30:42.926Z-07:00
  */
 
 // ---------------------------------------------------------------
@@ -21,8 +21,8 @@ const HomePageStyles = makeStyles({
     marginTop: "5%",
   },
   difficultyButton: {
-    maxWidth: "110px",
-    minWidth: "110px",
+    maxWidth: "120px",
+    minWidth: "120px",
     maxHeight: "40px",
     minHeight: "40px",
   },
@@ -37,7 +37,7 @@ interface HomePageProps {
 const HomePage = ({ setGameDifficulty }: HomePageProps): React.ReactElement => {
   const classes = HomePageStyles();
 
-  const buttons = ["easy", "medium", "hard"].map((difficulty) => {
+  const buttons = ["easy", "medium", "hard", "extreme"].map((difficulty) => {
     return (
       <Grid item key={difficulty}>
         <Button

@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Helper class to create and solve a Sudoku Puzzle
  * @created 2020-10-30T10:55:26.237Z-07:00
- * @last-modified 2020-10-30T11:14:39.224Z-07:00
+ * @last-modified 2020-10-30T11:33:20.124Z-07:00
  */
 
 import SudokuHelper from "utils/SudokuHelper";
@@ -24,12 +24,14 @@ export default class SudokuSolver {
   numberList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   private attemptNumbers: AttemptNumbers = {
-    easy: 1,
+    easy: 2,
     medium: 5,
-    hard: 7,
+    hard: 8,
+    extreme: 11,
   };
 
   constructor(difficulty: string) {
+    console.log("In the solver");
     this.difficulty = difficulty;
     this.grid = [];
     this.counter = 0;

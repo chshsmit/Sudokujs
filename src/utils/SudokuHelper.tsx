@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-22T16:18:39.205Z-07:00
- * @last-modified 2020-10-30T10:59:27.996Z-07:00
+ * @last-modified 2020-10-30T11:33:41.970Z-07:00
  */
 
 export default class SudokuHelper {
@@ -26,6 +26,10 @@ export default class SudokuHelper {
     "ArrowLeft",
     "ArrowRight",
   ];
+
+  constructor() {
+    console.log("in the helper");
+  }
 
   //--------------------------------------------------------------------------------------
 

@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-28T14:48:38.371Z-07:00
+ * @last-modified 2020-10-30T11:34:18.096Z-07:00
  */
 
 import React from "react";
@@ -13,7 +13,7 @@ import Cell from "components/Cell/Cell";
 import { checkIfIndexInBox, CellNotes } from "utils/utils";
 import SudokuHelper from "utils/SudokuHelper";
 
-const sudokuHelper = new SudokuHelper();
+// const sudokuHelper = new SudokuHelper();
 
 const BoardStyles = makeStyles({
   boardGrid: {
@@ -31,6 +31,7 @@ interface BoardProps {
   activeColumnPosition: number;
   uneditableCells: Array<string>;
   cellNotes: CellNotes;
+  sudokuHelper: SudokuHelper;
 }
 
 const Board = ({
@@ -40,6 +41,7 @@ const Board = ({
   activeColumnPosition,
   uneditableCells,
   cellNotes,
+  sudokuHelper,
 }: BoardProps): React.ReactElement => {
   const classes = BoardStyles();
 
