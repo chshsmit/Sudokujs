@@ -3,14 +3,20 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-27T13:50:08.427Z-07:00
- * @last-modified 2020-10-30T11:49:25.883Z-07:00
+ * @last-modified 2020-10-30T11:55:00.235Z-07:00
  */
 
 //---------------------------------------------------------------------------------------------------
 
 import React, { useState } from "react";
 
-import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Button,
+} from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -25,6 +31,7 @@ const NavBarStyles = makeStyles((theme: Theme) =>
     },
     title: {
       alignContent: "start",
+      cursor: "pointer",
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -63,7 +70,11 @@ const NavBar = ({ goBackToHome }: NavBarProps): React.ReactElement => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography
+            onClick={goBackToHome}
+            variant="h6"
+            className={classes.title}
+          >
             SudokuJs
           </Typography>
         </Toolbar>
