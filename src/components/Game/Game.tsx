@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T12:23:48.112Z-07:00
+ * @last-modified 2020-10-30T12:35:55.265Z-07:00
  */
 
 import React, {
@@ -90,6 +90,8 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
       }
     } else if (sudokuHelper.NAVIGATION_KEYS.includes(event.key)) {
       navigateGrid(event.key);
+    } else if (event.key === "n") {
+      toggleNoteMode();
     } else {
       console.log("Not a valid keypress");
     }
@@ -191,8 +193,8 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   // ---------------------------------------------------------------
 
   const toggleNoteMode = (): void => {
-    noteModeRef.current = !noteModeActive;
-    changeNoteMode(!noteModeActive);
+    noteModeRef.current = !noteModeRef.current;
+    changeNoteMode(noteModeRef.current);
   };
 
   // ---------------------------------------------------------------
