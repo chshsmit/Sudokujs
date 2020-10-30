@@ -14,9 +14,14 @@ const App = (): React.ReactElement => {
     toggleSudokuGameIsActive(true);
   };
 
+  const resetGameState = () => {
+    setGameDifficulty("");
+    toggleSudokuGameIsActive(false);
+  };
+
   return (
     <div className="App">
-      <NavBar />
+      <NavBar goBackToHome={resetGameState} />
       {sudokuGameIsActive ? (
         <Game difficulty={gameDifficulty} />
       ) : (

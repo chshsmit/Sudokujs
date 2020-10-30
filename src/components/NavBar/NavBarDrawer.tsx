@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-27T14:50:36.032Z-07:00
- * @last-modified 2020-10-27T14:58:47.728Z-07:00
+ * @last-modified 2020-10-30T11:50:38.619Z-07:00
  */
 
 //---------------------------------------------------------------------------------------------------
@@ -26,6 +26,7 @@ import HomeIcon from "@material-ui/icons/Home";
 interface NavBarDrawerProps {
   drawerIsOpen: boolean;
   toggleDrawer: () => void;
+  goBackToHome: () => void;
 }
 
 const NavBarDrawerStyles = makeStyles({
@@ -42,13 +43,20 @@ const NavBarDrawerStyles = makeStyles({
 const NavBarDrawer = ({
   drawerIsOpen,
   toggleDrawer,
+  goBackToHome,
 }: NavBarDrawerProps): React.ReactElement => {
   const classes = NavBarDrawerStyles();
 
   const list = () => (
     <div className={classes.list}>
       <List>
-        <ListItem>
+        <ListItem
+          button
+          onClick={() => {
+            goBackToHome();
+            toggleDrawer();
+          }}
+        >
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>

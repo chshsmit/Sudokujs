@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-27T13:50:08.427Z-07:00
- * @last-modified 2020-10-27T14:59:08.464Z-07:00
+ * @last-modified 2020-10-30T11:49:25.883Z-07:00
  */
 
 //---------------------------------------------------------------------------------------------------
@@ -32,9 +32,13 @@ const NavBarStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface NavBarProps {
+  goBackToHome: () => void;
+}
+
 //---------------------------------------------------------------------------------------------------
 
-const NavBar = (): React.ReactElement => {
+const NavBar = ({ goBackToHome }: NavBarProps): React.ReactElement => {
   const classes = NavBarStyles();
   const [drawerIsOpen, openCloseDrawer] = useState(false);
 
@@ -44,7 +48,11 @@ const NavBar = (): React.ReactElement => {
 
   return (
     <div className={classes.root}>
-      <NavBarDrawer drawerIsOpen={drawerIsOpen} toggleDrawer={toggleDrawer} />
+      <NavBarDrawer
+        goBackToHome={goBackToHome}
+        drawerIsOpen={drawerIsOpen}
+        toggleDrawer={toggleDrawer}
+      />
       <AppBar position="static">
         <Toolbar>
           <IconButton
