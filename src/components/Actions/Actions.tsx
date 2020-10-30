@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-30T14:07:48.483Z-07:00
+ * @last-modified 2020-10-30T14:26:44.714Z-07:00
  */
 
 import React from "react";
@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 import ActionIcon from "components/Actions/ActionIcon";
-import UndoIcon from "@material-ui/icons/Undo";
 import DeleteIcon from "@material-ui/icons/Delete";
 import NotesIcon from "@material-ui/icons/Notes";
 
@@ -50,11 +49,6 @@ const Actions = ({
       direction="row"
       className={classes.mainActionContainer}
     >
-      {/* <ActionIcon
-        action={() => console.log("Hello")}
-        actionText="Undo"
-        icon={<UndoIcon fontSize="large" />}
-      /> */}
       <ActionIcon
         action={() => deleteCell(0)}
         active={activeCellEditable}

@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T14:23:32.551Z-07:00
+ * @last-modified 2020-10-30T14:27:23.500Z-07:00
  */
 
 import React, {
@@ -44,7 +44,6 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   ]);
 
   const [sudokuGrid, updateGrid] = useState(sudokuSolver.createNewGrid());
-  const [gridIsFull, setGridIsFull] = useState(false);
   const [sudokuIsSolved, setSudokuIsSolved] = useState(false);
   const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
   const [cellNotes, updateCellNotes] = useState(
@@ -97,7 +96,6 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
         setSudokuIsSolved(validSolution);
       }
 
-      setGridIsFull(fullGrid);
       updateGrid(copyOfGrid);
     },
     [cellNotes, sudokuHelper, sudokuGrid]
