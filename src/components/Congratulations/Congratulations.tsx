@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-01T11:08:44.803Z-08:00
+ * @last-modified 2020-11-01T11:10:10.335Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -58,7 +58,9 @@ const CongratulationsTransition = React.forwardRef(function Transition(
 
 // -----------------------------------------------------------
 
-const Congratulations = ({ gameIsOver }: CongratulationsProps) => {
+const Congratulations = ({
+  gameIsOver,
+}: CongratulationsProps): React.ReactElement => {
   const classes = CongratulationsStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
