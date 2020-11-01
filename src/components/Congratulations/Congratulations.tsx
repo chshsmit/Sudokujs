@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-01T11:04:22.796Z-08:00
+ * @last-modified 2020-11-01T11:08:44.803Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -16,7 +16,9 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Slide,
 } from "@material-ui/core";
+import { TransitionProps } from "@material-ui/core/transitions";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import HomeIcon from "@material-ui/icons/Home";
@@ -46,6 +48,14 @@ const CongratulationsStyles = makeStyles({
     maxWidth: "45%",
   },
 });
+
+const CongratulationsTransition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement<any, any> },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+
 // -----------------------------------------------------------
 
 const Congratulations = ({ gameIsOver }: CongratulationsProps) => {
@@ -54,7 +64,11 @@ const Congratulations = ({ gameIsOver }: CongratulationsProps) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Dialog open={gameIsOver} fullScreen={fullScreen}>
+    <Dialog
+      open={gameIsOver}
+      fullScreen={fullScreen}
+      TransitionComponent={CongratulationsTransition}
+    >
       <DialogTitle className={classes.centeredText}>
         Congratulations
       </DialogTitle>
