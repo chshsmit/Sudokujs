@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-01T11:10:10.335Z-08:00
+ * @last-modified 2020-11-01T11:13:34.364Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -53,7 +53,14 @@ const CongratulationsTransition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
   ref: React.Ref<unknown>
 ) {
-  return <Slide direction="down" ref={ref} {...props} />;
+  return (
+    <Slide
+      direction="down"
+      ref={ref}
+      {...props}
+      timeout={{ enter: 500, exit: 500 }}
+    />
+  );
 });
 
 // -----------------------------------------------------------
