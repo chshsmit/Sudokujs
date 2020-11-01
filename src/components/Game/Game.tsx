@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-10-30T14:27:23.500Z-07:00
+ * @last-modified 2020-11-01T10:17:46.485Z-08:00
  */
 
 import React, {
@@ -24,6 +24,7 @@ import Board from "components/Board/Board";
 import Actions from "components/Actions/Actions";
 import TimeAndDifficulty from "components/TimeAndDifficulty/TimeAndDifficulty";
 import GamePaused from "components/GamePaused/GamePaused";
+import Congratulations from "components/Congratulations/Congratulations";
 
 // ---------------------------------------------------------------
 
@@ -44,7 +45,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
   ]);
 
   const [sudokuGrid, updateGrid] = useState(sudokuSolver.createNewGrid());
-  const [sudokuIsSolved, setSudokuIsSolved] = useState(false);
+  const [sudokuIsSolved, setSudokuIsSolved] = useState(true);
   const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
   const [cellNotes, updateCellNotes] = useState(
     createInitialCellNotes(sudokuGrid)
@@ -242,7 +243,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
           toggleNoteMode={toggleNoteMode}
           noteModeActive={noteModeActive}
         />
-        {sudokuIsSolved && <Grid item>Solved success</Grid>}
+        <Congratulations gameIsOver={sudokuIsSolved} />
         <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
       </Grid>
     </Zoom>
