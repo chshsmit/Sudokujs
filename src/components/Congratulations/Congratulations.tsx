@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-03T10:57:33.095Z-08:00
+ * @last-modified 2020-11-03T11:17:10.033Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -31,6 +31,7 @@ import trophy from "static/trophy.png";
 interface CongratulationsProps {
   gameIsOver: boolean;
   returnHome: () => void;
+  totalSolveTime: number;
 }
 
 const CongratulationsStyles = makeStyles({
@@ -69,6 +70,7 @@ const CongratulationsTransition = React.forwardRef(function Transition(
 const Congratulations = ({
   gameIsOver,
   returnHome,
+  totalSolveTime,
 }: CongratulationsProps): React.ReactElement => {
   const classes = CongratulationsStyles();
   const theme = useTheme();
@@ -85,6 +87,12 @@ const Congratulations = ({
       </DialogTitle>
       <DialogContent className={classes.centeredText}>
         <DialogContentText>You completed the puzzle!</DialogContentText>
+        <DialogContentText>
+          Your total solve time was {Math.floor(totalSolveTime / 60)}:
+          {totalSolveTime % 60 < 10
+            ? "0" + (totalSolveTime % 60)
+            : totalSolveTime % 60}
+        </DialogContentText>
         <img src={trophy} alt="trophy" className={classes.trophyImage} />
       </DialogContent>
       <DialogActions className={classes.dialogActions}>

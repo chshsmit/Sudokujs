@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-11-03T10:57:11.979Z-08:00
+ * @last-modified 2020-11-03T11:16:29.259Z-08:00
  */
 
 import React, {
@@ -46,10 +46,8 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
   ]);
 
   const [sudokuGrid, updateGrid] = useState(sudokuSolver.createNewGrid());
-  const [sudokuIsSolved, setSudokuIsSolved] = useState(true);
-  const [uneditableCells, setUneditableCells] = useState(
-    determineUneditableCells(sudokuGrid)
-  );
+  const [sudokuIsSolved, setSudokuIsSolved] = useState(false);
+  const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
   const [cellNotes, updateCellNotes] = useState(
     createInitialCellNotes(sudokuGrid)
   );
@@ -63,9 +61,23 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
   });
   const selectedPositionRef = useRef(selectedPosition);
 
+  const [secondsPlayed, setSecondsPlayed] = useState(0);
+  const secondsPlayedRef = useRef(secondsPlayed);
+
   // ---------------------------------------------------------------
   // Effects
   // ---------------------------------------------------------------
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      secondsPlayedRef.current = secondsPlayedRef.current + 1;
+      setSecondsPlayed(secondsPlayedRef.current);
+    }, 1000);
+
+    if (gameIsPaused || sudokuIsSolved) clearInterval(interval);
+
+    return () => clearInterval(interval);
+  }, [gameIsPaused, sudokuIsSolved]);
 
   useEffect(() => {
     document.addEventListener("keydown", newKeyBoardInput);
@@ -226,6 +238,7 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
           difficulty={difficulty}
           gamePaused={gameIsPaused}
           solved={sudokuIsSolved}
+          secondsPlayed={secondsPlayed}
         />
         <Board
           sudokuGrid={sudokuGrid}
@@ -246,7 +259,11 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
           toggleNoteMode={toggleNoteMode}
           noteModeActive={noteModeActive}
         />
-        <Congratulations returnHome={goBackHome} gameIsOver={sudokuIsSolved} />
+        <Congratulations
+          totalSolveTime={secondsPlayed}
+          returnHome={goBackHome}
+          gameIsOver={sudokuIsSolved}
+        />
         <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
       </Grid>
     </Zoom>

@@ -3,12 +3,12 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-10-30T14:25:29.184Z-07:00
+ * @last-modified 2020-11-03T11:09:42.728Z-08:00
  */
 
 // ---------------------------------------------------------------
 
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -22,6 +22,7 @@ interface TimeAndDifficultyProps {
   toggleGamePaused: () => void;
   gamePaused: boolean;
   solved: boolean;
+  secondsPlayed: number;
 }
 
 const TimeAndDifficultyStyles = makeStyles({
@@ -37,25 +38,9 @@ const TimeAndDifficulty = ({
   difficulty,
   toggleGamePaused,
   gamePaused,
-  solved,
+  secondsPlayed,
 }: TimeAndDifficultyProps): React.ReactElement => {
   const classes = TimeAndDifficultyStyles();
-
-  const [seconds, setSeconds] = useState(0);
-  const secondsRef = useRef(seconds);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      secondsRef.current = secondsRef.current + 1;
-      setSeconds(secondsRef.current);
-    }, 1000);
-
-    if (gamePaused || solved) {
-      clearInterval(interval);
-    }
-
-    return () => clearInterval(interval);
-  }, [gamePaused, solved]);
 
   return (
     <Grid
@@ -79,8 +64,10 @@ const TimeAndDifficulty = ({
       </Grid>
       <Grid item>
         <Typography>
-          {Math.floor(seconds / 60)}:
-          {seconds % 60 < 10 ? "0" + (seconds % 60) : seconds % 60}
+          {Math.floor(secondsPlayed / 60)}:
+          {secondsPlayed % 60 < 10
+            ? "0" + (secondsPlayed % 60)
+            : secondsPlayed % 60}
         </Typography>
       </Grid>
     </Grid>
