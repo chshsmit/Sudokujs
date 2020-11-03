@@ -34,7 +34,7 @@ const App = (): React.ReactElement => {
         }
       />
       {sudokuGameIsActive ? (
-        <Game difficulty={gameDifficulty} />
+        <Game goBackHome={resetGameState} difficulty={gameDifficulty} />
       ) : (
         <HomePage setGameDifficulty={makeGameActive} />
       )}

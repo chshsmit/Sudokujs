@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-01T11:13:34.364Z-08:00
+ * @last-modified 2020-11-03T10:57:33.095Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -30,6 +30,7 @@ import trophy from "static/trophy.png";
 
 interface CongratulationsProps {
   gameIsOver: boolean;
+  returnHome: () => void;
 }
 
 const CongratulationsStyles = makeStyles({
@@ -67,6 +68,7 @@ const CongratulationsTransition = React.forwardRef(function Transition(
 
 const Congratulations = ({
   gameIsOver,
+  returnHome,
 }: CongratulationsProps): React.ReactElement => {
   const classes = CongratulationsStyles();
   const theme = useTheme();
@@ -88,20 +90,20 @@ const Congratulations = ({
       <DialogActions className={classes.dialogActions}>
         <Button
           className={classes.dialogActionButton}
-          // variant="contained"
-          color="secondary"
+          color="primary"
+          onClick={returnHome}
           startIcon={<HomeIcon />}
         >
-          Home
+          Return Home
         </Button>
-        <Button
+        {/* <Button
           className={classes.dialogActionButton}
-          // variant="contained"
           color="primary"
+          onClick={resetGame}
           startIcon={<ReplayIcon />}
         >
           Play Again
-        </Button>
+        </Button> */}
       </DialogActions>
     </Dialog>
   );

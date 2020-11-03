@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-11-01T11:13:45.328Z-08:00
+ * @last-modified 2020-11-03T10:57:11.979Z-08:00
  */
 
 import React, {
@@ -30,11 +30,12 @@ import Congratulations from "components/Congratulations/Congratulations";
 
 interface GameProps {
   difficulty: string;
+  goBackHome: () => void;
 }
 
 // ---------------------------------------------------------------
 
-const Game = ({ difficulty }: GameProps): React.ReactElement => {
+const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
   // ---------------------------------------------------------------
   // State and Refs
   // ---------------------------------------------------------------
@@ -46,7 +47,9 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
 
   const [sudokuGrid, updateGrid] = useState(sudokuSolver.createNewGrid());
   const [sudokuIsSolved, setSudokuIsSolved] = useState(true);
-  const [uneditableCells] = useState(determineUneditableCells(sudokuGrid));
+  const [uneditableCells, setUneditableCells] = useState(
+    determineUneditableCells(sudokuGrid)
+  );
   const [cellNotes, updateCellNotes] = useState(
     createInitialCellNotes(sudokuGrid)
   );
@@ -243,7 +246,7 @@ const Game = ({ difficulty }: GameProps): React.ReactElement => {
           toggleNoteMode={toggleNoteMode}
           noteModeActive={noteModeActive}
         />
-        <Congratulations gameIsOver={sudokuIsSolved} />
+        <Congratulations returnHome={goBackHome} gameIsOver={sudokuIsSolved} />
         <GamePaused isOpen={gameIsPaused} toggleGamePaused={toggleGamePaused} />
       </Grid>
     </Zoom>
