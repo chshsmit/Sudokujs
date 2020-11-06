@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-11-03T11:09:42.728Z-08:00
+ * @last-modified 2020-11-06T11:55:38.934Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -27,7 +27,7 @@ interface TimeAndDifficultyProps {
 
 const TimeAndDifficultyStyles = makeStyles({
   tdRoot: {
-    width: "675px",
+    width: "50vw",
     marginTop: "2%",
   },
 });

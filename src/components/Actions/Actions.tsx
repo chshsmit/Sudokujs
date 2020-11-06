@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2020-10-30T14:26:44.714Z-07:00
+ * @last-modified 2020-11-06T12:06:05.294Z-08:00
  */
 
 import React from "react";
@@ -18,9 +18,9 @@ import NotesIcon from "@material-ui/icons/Notes";
 
 const ActionsStyles = makeStyles({
   mainActionContainer: {
-    marginTop: "3%",
+    marginTop: "1%",
     marginLeft: "1%",
-    width: "50%",
+    width: "75vw",
     // margin: "auto",
   },
 });

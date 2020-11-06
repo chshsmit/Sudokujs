@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-30T13:08:53.438Z-07:00
+ * @last-modified 2020-11-06T12:06:13.332Z-08:00
  */
 
 import React from "react";
@@ -18,9 +18,12 @@ import SudokuHelper from "utils/SudokuHelper";
 const BoardStyles = makeStyles({
   boardGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(9, 75px)",
-    gridTemplateRows: "repeat(9, 75px)",
-    width: "fit-content",
+    gridTemplateColumns: "repeat(9, 11%)",
+    gridTemplateRows: "repeat(9, 11%)",
+    // gridAutoRows: "1fr",
+    width: "75vw",
+    height: "75vw",
+    paddingLeft: ".5%",
   },
 });
 
