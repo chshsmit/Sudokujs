@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-03T11:17:10.033Z-08:00
+ * @last-modified 2020-11-06T11:20:01.711Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -22,7 +22,6 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import HomeIcon from "@material-ui/icons/Home";
-import ReplayIcon from "@material-ui/icons/Replay";
 
 import trophy from "static/trophy.png";
 
