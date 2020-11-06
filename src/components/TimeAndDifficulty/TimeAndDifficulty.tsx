@@ -3,14 +3,14 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-28T14:44:41.098Z-07:00
- * @last-modified 2020-11-03T11:09:42.728Z-08:00
+ * @last-modified 2020-11-06T12:19:44.904Z-08:00
  */
 
 // ---------------------------------------------------------------
 
 import React from "react";
 import { Grid, Typography, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayIcon from "@material-ui/icons/PlayArrow";
@@ -25,12 +25,25 @@ interface TimeAndDifficultyProps {
   secondsPlayed: number;
 }
 
-const TimeAndDifficultyStyles = makeStyles({
-  tdRoot: {
-    width: "675px",
-    marginTop: "2%",
-  },
-});
+const TimeAndDifficultyStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    tdRoot: {
+      marginTop: "2%",
+      [theme.breakpoints.up("lg")]: {
+        width: "40vw",
+      },
+      [theme.breakpoints.down("md")]: {
+        width: "50vw",
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "80vw",
+      },
+      [theme.breakpoints.down("xs")]: {
+        width: "90vw",
+      },
+    },
+  })
+);
 
 // ---------------------------------------------------------------
 

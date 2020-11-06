@@ -3,11 +3,11 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-20T11:40:07.951Z-07:00
- * @last-modified 2020-10-30T13:08:53.438Z-07:00
+ * @last-modified 2020-11-06T12:19:54.662Z-08:00
  */
 
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import Cell from "components/Cell/Cell";
 import { checkIfIndexInBox, CellNotes } from "utils/utils";
@@ -15,14 +15,32 @@ import SudokuHelper from "utils/SudokuHelper";
 
 // const sudokuHelper = new SudokuHelper();
 
-const BoardStyles = makeStyles({
-  boardGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(9, 75px)",
-    gridTemplateRows: "repeat(9, 75px)",
-    width: "fit-content",
-  },
-});
+const BoardStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    boardGrid: {
+      display: "grid",
+      gridTemplateColumns: "repeat(9, 11%)",
+      gridTemplateRows: "repeat(9, 11%)",
+      [theme.breakpoints.up("lg")]: {
+        width: "40vw",
+        height: "40vw",
+      },
+      [theme.breakpoints.down("md")]: {
+        width: "50vw",
+        height: "50vw",
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "80vw",
+        height: "80vw",
+      },
+      [theme.breakpoints.down("xs")]: {
+        width: "90vw",
+        height: "90vw",
+      },
+      paddingLeft: ".5%",
+    },
+  })
+);
 
 interface BoardProps {
   sudokuGrid: Array<Array<number>>;
