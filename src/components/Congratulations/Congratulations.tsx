@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Congratulations dialog when the user completes the puzzle successfully
  * @created 2020-11-01T10:08:18.911Z-08:00
- * @last-modified 2020-11-06T11:20:01.711Z-08:00
+ * @last-modified 2020-11-06T11:25:17.026Z-08:00
  */
 
 // ---------------------------------------------------------------
@@ -103,14 +103,6 @@ const Congratulations = ({
         >
           Return Home
         </Button>
-        {/* <Button
-          className={classes.dialogActionButton}
-          color="primary"
-          onClick={resetGame}
-          startIcon={<ReplayIcon />}
-        >
-          Play Again
-        </Button> */}
       </DialogActions>
     </Dialog>
   );
