@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description Helper class to create and solve a Sudoku Puzzle
  * @created 2020-10-30T10:55:26.237Z-07:00
- * @last-modified 2020-11-01T11:14:45.635Z-08:00
+ * @last-modified 2021-01-05T19:12:59.054Z-08:00
  */
 
 import SudokuHelper from "utils/SudokuHelper";
@@ -25,9 +25,8 @@ export default class SudokuSolver {
 
   private attemptNumbers: AttemptNumbers = {
     easy: 2,
-    medium: 5,
-    hard: 8,
-    extreme: 11,
+    medium: 8,
+    hard: 11,
   };
 
   constructor(difficulty: string) {
