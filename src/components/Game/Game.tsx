@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2020-11-03T11:16:29.259Z-08:00
+ * @last-modified 2021-01-05T17:21:51.994Z-08:00
  */
 
 import React, {
@@ -102,7 +102,13 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
       const copyOfGrid = [...sudokuGrid];
       copyOfGrid[selectedPositionRef.current.rowPosition][
         selectedPositionRef.current.columnPosition
-      ] = value;
+      ] =
+        value ===
+        copyOfGrid[selectedPositionRef.current.rowPosition][
+          selectedPositionRef.current.columnPosition
+        ]
+          ? 0
+          : value;
 
       const fullGrid = sudokuHelper.determineIfGridIsFull(copyOfGrid);
 
@@ -117,23 +123,26 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
     [cellNotes, sudokuHelper, sudokuGrid]
   );
 
+  const addNoteToCell = useCallback(
+    (noteValue: number): void => {
+      const { rowPosition, columnPosition } = selectedPositionRef.current;
+
+      const copyOfCellNotes = { ...cellNotes };
+      copyOfCellNotes[`${rowPosition}-${columnPosition}`][
+        noteValue - 1
+      ] = !cellNotes[`${rowPosition}-${columnPosition}`][noteValue - 1];
+
+      updateCellNotes(copyOfCellNotes);
+    },
+    [cellNotes]
+  );
+
   // ---------------------------------------------------------------
   // Keyboard handlers
   // ---------------------------------------------------------------
 
   const newKeyBoardInput = useCallback(
     (event: KeyboardEvent): void => {
-      const addNoteToCell = (noteValue: number): void => {
-        const { rowPosition, columnPosition } = selectedPositionRef.current;
-
-        const copyOfCellNotes = { ...cellNotes };
-        copyOfCellNotes[`${rowPosition}-${columnPosition}`][
-          noteValue - 1
-        ] = !cellNotes[`${rowPosition}-${columnPosition}`][noteValue - 1];
-
-        updateCellNotes(copyOfCellNotes);
-      };
-
       const navigateGrid = (direction: string): void => {
         switch (direction) {
           case "ArrowUp":
@@ -182,15 +191,15 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
         }
       } else if (sudokuHelper.NAVIGATION_KEYS.includes(event.key)) {
         navigateGrid(event.key);
-      } else if (event.key === "n") {
+      } else if (event.key === "n" || event.key === "Shift") {
         toggleNoteMode();
       } else {
-        console.log("Not a valid keypress");
+        console.log(`Not a valid keypress: ${event.key}`);
       }
     },
     [
-      cellNotes,
       putNewNumberInGrid,
+      addNoteToCell,
       uneditableCells,
       sudokuHelper.NAVIGATION_KEYS,
       sudokuHelper.NUMBER_KEYS,
@@ -258,6 +267,7 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
           deleteCell={putNewNumberInGrid}
           toggleNoteMode={toggleNoteMode}
           noteModeActive={noteModeActive}
+          addNumberToGrid={noteModeActive ? addNoteToCell : putNewNumberInGrid}
         />
         <Congratulations
           totalSolveTime={secondsPlayed}
