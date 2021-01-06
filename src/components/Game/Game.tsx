@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2021-01-05T17:26:30.129Z-08:00
+ * @last-modified 2021-01-05T17:28:37.122Z-08:00
  */
 
 import React, {
@@ -140,7 +140,6 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
   // ---------------------------------------------------------------
   // Keyboard handlers
   // ---------------------------------------------------------------
-  // Comment
 
   const newKeyBoardInput = useCallback(
     (event: KeyboardEvent): void => {
