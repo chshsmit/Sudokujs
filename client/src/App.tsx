@@ -32,6 +32,7 @@ const App = (): React.ReactElement => {
         goBackToHome={
           sudokuGameIsActive ? toggleConfirmLeaveOpen : resetGameState
         }
+        gameIsActive={sudokuGameIsActive}
       />
       {sudokuGameIsActive ? (
         <Game goBackHome={resetGameState} difficulty={gameDifficulty} />

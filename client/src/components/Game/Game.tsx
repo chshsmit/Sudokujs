@@ -4,7 +4,7 @@
  * @description
  * @created 2020-10-20T14:39:32.323Z-07:00
  * @copyright
- * @last-modified 2021-01-05T17:28:37.122Z-08:00
+ * @last-modified 2021-01-08T14:48:03.778Z-08:00
  */
 
 import React, {
@@ -242,6 +242,7 @@ const Game = ({ difficulty, goBackHome }: GameProps): React.ReactElement => {
     <Zoom in>
       <Grid container direction="column" justify="center"
         alignItems="center">
+        <Grid container justify="flex-end" />
         <TimeAndDifficulty
           toggleGamePaused={toggleGamePaused}
           difficulty={difficulty}

@@ -3,16 +3,24 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-27T13:50:08.427Z-07:00
- * @last-modified 2020-10-30T12:17:15.723Z-07:00
+ * @last-modified 2021-01-05T18:59:03.600Z-08:00
  */
 
 //---------------------------------------------------------------------------------------------------
 
 import React, { useState } from "react";
 
-import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Tooltip,
+  Grid,
+} from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import NavBarDrawer from "components/NavBar/NavBarDrawer";
 
@@ -35,11 +43,15 @@ const NavBarStyles = makeStyles((theme: Theme) =>
 
 interface NavBarProps {
   goBackToHome: () => void;
+  gameIsActive: boolean;
 }
 
 //---------------------------------------------------------------------------------------------------
 
-const NavBar = ({ goBackToHome }: NavBarProps): React.ReactElement => {
+const NavBar = ({
+  goBackToHome,
+  gameIsActive,
+}: NavBarProps): React.ReactElement => {
   const classes = NavBarStyles();
   const [drawerIsOpen, openCloseDrawer] = useState(false);
 
@@ -56,21 +68,30 @@ const NavBar = ({ goBackToHome }: NavBarProps): React.ReactElement => {
       />
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            onClick={goBackToHome}
-            variant="h6"
-            className={classes.title}
-          >
-            SudokuJs
-          </Typography>
+          <Grid container direction="row" alignItems="center">
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              onClick={toggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              onClick={goBackToHome}
+              variant="h6"
+              className={classes.title}
+            >
+              SudokuJs
+            </Typography>
+          </Grid>
+          {gameIsActive && (
+            <Tooltip title="Round Settings" placement="left">
+              <IconButton color="inherit">
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+          )}
         </Toolbar>
       </AppBar>
     </div>

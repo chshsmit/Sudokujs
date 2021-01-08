@@ -3,7 +3,7 @@
  * @author Christopher Smith
  * @description
  * @created 2020-10-21T13:12:57.896Z-07:00
- * @last-modified 2021-01-05T17:20:08.383Z-08:00
+ * @last-modified 2021-01-08T14:47:23.298Z-08:00
  */
 
 import React from "react";
@@ -88,7 +88,12 @@ const Actions = ({
     .map((n) => n + 1)
     .map((num) => (
       <Grid item key={num}>
-        <div onClick={() => addNumberToGrid(num)} className={classes.numbers}>
+        <div
+          onClick={() => {
+            if (activeCellEditable) addNumberToGrid(num);
+          }}
+          className={classes.numbers}
+        >
           {num}
         </div>
       </Grid>
